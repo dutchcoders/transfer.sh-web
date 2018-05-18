@@ -1,6 +1,6 @@
 # transfer.sh-web
 
-This repository contains the web frontend for [transfer.sh](github.com/dutchcoders/transfer.sh/).
+This repository contains the web frontend for [transfer.sh](https://github.com/dutchcoders/transfer.sh/).
 
 ## Build
 
