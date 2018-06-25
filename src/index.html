@@ -44,7 +44,7 @@ include "includes/head.html"
                             <br>$ curl --upload-file ./hello.txt https://transfer.sh/hello.txt https://transfer.sh/66nb8/hello.txt
                             <br>
                             <br>
-                            <span class="code-title"># Using the alias</span>
+                            <span class="code-title"># Using the shell function</span>
                             <br>$ transfer hello.txt
                             <br>##################################################### 100.0% https://transfer.sh/eibhM/hello.txt
                         </code>
@@ -151,16 +151,17 @@ include "includes/head.html"
                     </div>
                 </div>
                 <div class="col-md-6 ">
-                    <h3>Add an alias to .bashrc or .zshrc <a href='https://gist.github.com/nl5887/a511f172d3fb3cd0e42d'>[gist]</a></h3>
+                    <h3>Add shell function to .bashrc or .zshrc</a></h3>
                     <div class="terminal-top">
                     </div>
                     <div class="terminal">
                         <code>
-                            <span class="code-title"># Add this to .bashrc or its equivalent</span>
-                            <br/>transfer() { if [ $# -eq 0 ]; then echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"; return 1; fi <br/>tmpfile=$( mktemp -t transferXXX ); if tty -s; then basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g'); curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile; else curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ; fi; cat $tmpfile; rm -f $tmpfile; }
+                            <span class="code-title"># Add this to .bashrc or .zshrc or its equivalent</span>
+                            <br/>
+                            transfer(){ if [ $# -eq 0 ];then echo &quot;No arguments specified.\nUsage:\n  transfer &lt;file|directory&gt;\n  ... | transfer &lt;file_name&gt;&quot;&gt;&amp;2;return 1;fi;if tty -s;then file=&quot;$1&quot;;file_name=$(basename &quot;$file&quot;);if [ ! -e &quot;$file&quot; ];then echo &quot;$file: No such file or directory&quot;&gt;&amp;2;return 1;fi;if [ -d &quot;$file&quot; ];then file_name=&quot;$file_name.zip&quot; ,;(cd &quot;$file&quot;&amp;&amp;zip -r -q - .)|curl --progress-bar --upload-file &quot;-&quot; &quot;https://transfer.sh/$file_name&quot;|tee /dev/null,;;else cat &quot;$file&quot;|curl --progress-bar --upload-file &quot;-&quot; &quot;https://transfer.sh/$file_name&quot;|tee /dev/null;fi;else file_name=$1;curl --progress-bar --upload-file &quot;-&quot; &quot;https://transfer.sh/$file_name&quot;|tee /dev/null;fi;}
                             <br/>
                             <br/>
-                            <span class="code-title"># Now you can use transfer command</span>
+                            <span class="code-title"># Now you can use transfer function</span>
                             <br>$ transfer hello.txt
                         </code>
                     </div>
@@ -237,12 +238,12 @@ include "includes/head.html"
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <h3>Send email with transfer link (uses alias)</h3>
+                        <h3>Send email with transfer link (uses shell function)</h3>
                         <div class="terminal-top">
                         </div>
                         <div class="terminal">
                             <code>
-                                <span class="code-title"># Transfer and send email with link (uses alias)</span>
+                                <span class="code-title"># Transfer and send email with link (uses shell function)</span>
                                 <br/>$ transfer /tmp/hello.txt | mail -s "Hello World" user@yourmaildomain.com
                             </code>
                         </div>
