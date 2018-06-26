@@ -42,14 +42,14 @@ include "includes/head.html"
 
                     </div>
                     <div id="terminal" class="terminal">
-                        <code>
+                        <code style="white-space: pre-line">
                             <span class="code-title"># Upload using cURL</span>
-                            <br>$ curl --upload-file ./hello.txt https://transfer.sh/hello.txt https://transfer.sh/66nb8/hello.txt
-                            <br>
-                            <br>
-                            <span class="code-title"># Using the shell function</span>
-                            <br>$ transfer hello.txt
-                            <br>##################################################### 100.0% https://transfer.sh/eibhM/hello.txt
+                            $ curl --upload-file ./hello.txt https://transfer.sh/hello.txt https://transfer.sh/66nb8/hello.txt
+
+
+                            <span class="code-title"># Using the alias</span>
+                            $ transfer hello.txt
+                            ##################################################### 100.0% https://transfer.sh/eibhM/hello.txt
                         </code>
                     </div>
                     <div id="web">
@@ -140,16 +140,16 @@ include "includes/head.html"
 
                     </div>
                     <div class="terminal">
-                        <code>
+                        <code style="white-space: pre-line">
                             <span class="code-title"># Uploading is easy using curl</span>
-                            <br>$ curl --upload-file ./hello.txt https://transfer.sh/hello.txt
-                            <br>https://transfer.sh/66nb8/hello.txt
-                            <br/>
-                            <br>$ curl -H "Max-Downloads: 1" -H "Max-Days: 5" --upload-file ./hello.txt https://transfer.sh/hello.txt
-                            <br>https://transfer.sh/66nb8/hello.txt
-                            <br>
+                            $ curl --upload-file ./hello.txt https://transfer.sh/hello.txt
+                            https://transfer.sh/66nb8/hello.txt
+
+                            $ curl -H "Max-Downloads: 1" -H "Max-Days: 5" --upload-file ./hello.txt https://transfer.sh/hello.txt
+                            https://transfer.sh/66nb8/hello.txt
+
                             <span class="code-title"># Download the file</span>
-                            <br>$ curl https://transfer.sh/66nb8/hello.txt -o hello.txt
+                            $ curl https://transfer.sh/66nb8/hello.txt -o hello.txt
                         </code>
                     </div>
                 </div>
@@ -158,14 +158,13 @@ include "includes/head.html"
                     <div class="terminal-top">
                     </div>
                     <div class="terminal">
-                        <code>
-                            <span class="code-title"># Add this to .bashrc or .zshrc or its equivalent</span>
-                            <br/>
-                            transfer(){ if [ $# -eq 0 ];then echo &quot;No arguments specified.\nUsage:\n  transfer &lt;file|directory&gt;\n  ... | transfer &lt;file_name&gt;&quot;&gt;&amp;2;return 1;fi;if tty -s;then file=&quot;$1&quot;;file_name=$(basename &quot;$file&quot;);if [ ! -e &quot;$file&quot; ];then echo &quot;$file: No such file or directory&quot;&gt;&amp;2;return 1;fi;if [ -d &quot;$file&quot; ];then file_name=&quot;$file_name.zip&quot; ,;(cd &quot;$file&quot;&amp;&amp;zip -r -q - .)|curl --progress-bar --upload-file &quot;-&quot; &quot;https://transfer.sh/$file_name&quot;|tee /dev/null,;;else cat &quot;$file&quot;|curl --progress-bar --upload-file &quot;-&quot; &quot;https://transfer.sh/$file_name&quot;|tee /dev/null;fi;else file_name=$1;curl --progress-bar --upload-file &quot;-&quot; &quot;https://transfer.sh/$file_name&quot;|tee /dev/null;fi;}
-                            <br/>
-                            <br/>
-                            <span class="code-title"># Now you can use transfer function</span>
-                            <br>$ transfer hello.txt
+                        <code style="white-space: pre-line">
+                            <span class="code-title"># Add this to .bashrc or its equivalent</span>
+                            transfer() { if [ $# -eq 0 ]; then echo -e "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"; return 1; fi <br/>tmpfile=$( mktemp -t transferXXX ); if tty -s; then basefile=$(basename "$1" | sed -e 's/[^a-zA-Z0-9._-]/-/g'); curl --progress-bar --upload-file "$1" "https://transfer.sh/$basefile" >> $tmpfile; else curl --progress-bar --upload-file "-" "https://transfer.sh/$1" >> $tmpfile ; fi; cat $tmpfile; rm -f $tmpfile; }
+
+
+                            <span class="code-title"># Now you can use transfer command</span>
+                            $ transfer hello.txt
                         </code>
                     </div>
                 </div>
@@ -181,13 +180,13 @@ include "includes/head.html"
                         <div class="terminal-top">
                         </div>
                         <div class="terminal">
-                            <code>
-                                <br>$ curl -i -F filedata=@/tmp/hello.txt -F filedata=@/tmp/hello2.txt https://transfer.sh/
-                                <br>
-                                <br>
+                            <code style="white-space: pre-line">
+                                $ curl -i -F filedata=@/tmp/hello.txt -F filedata=@/tmp/hello2.txt https://transfer.sh/
+
+
                                 <span class="code-title"># Combining downloads as zip or tar archive</span>
-                                <br>$ curl https://transfer.sh/(15HKz/hello.txt,15HKz/hello.txt).tar.gz
-                                <br/>$ curl https://transfer.sh/(15HKz/hello.txt,15HKz/hello.txt).zip
+                                $ curl https://transfer.sh/(15HKz/hello.txt,15HKz/hello.txt).tar.gz
+                                $ curl https://transfer.sh/(15HKz/hello.txt,15HKz/hello.txt).zip
                             </code>
                         </div>
 
@@ -198,13 +197,13 @@ include "includes/head.html"
                         <div class="terminal-top">
                         </div>
                         <div class="terminal">
-                            <code>
+                            <code style="white-space: pre-line">
                                 <span class="code-title"># Encrypt files with password using gpg</span>
-                                <br>$ cat /tmp/hello.txt|gpg -ac -o-|curl -X PUT --upload-file "-" https://transfer.sh/test.txt
-                                <br>
-                                <br>
+                                $ cat /tmp/hello.txt|gpg -ac -o-|curl -X PUT --upload-file "-" https://transfer.sh/test.txt
+
+
                                 <span class="code-title"># Download and decrypt</span>
-                                <br>$ curl https://transfer.sh/1lDau/test.txt|gpg -o- > /tmp/hello.txt
+                                $ curl https://transfer.sh/1lDau/test.txt|gpg -o- > /tmp/hello.txt
                             </code>
                         </div>
                     </div>
@@ -216,15 +215,15 @@ include "includes/head.html"
                         <div class="terminal-top">
                         </div>
                         <div class="terminal">
-                            <code>
+                            <code style="white-space: pre-line">
                                 <span class="code-title"># Scan for malware or viruses using Clamav</span>
-                                <br>$ wget http://www.eicar.org/download/eicar.com
-                                <br>$ curl -X PUT --upload-file ./eicar.com https://transfer.sh/eicar.com/scan
-                                <br>
-                                <br>
+                                $ wget http://www.eicar.org/download/eicar.com
+                                $ curl -X PUT --upload-file ./eicar.com https://transfer.sh/eicar.com/scan
+
+                                
                                 <span class="code-title"># Upload malware to VirusTotal, get a permalink in return</span>
-                                <br>$ curl -X PUT --upload-file nhgbhhj https://transfer.sh/test.txt/virustotal
-                                <br>
+                                $ curl -X PUT --upload-file nhgbhhj https://transfer.sh/test.txt/virustotal
+                                
                             </code>
                         </div>
                     </div>
@@ -233,9 +232,10 @@ include "includes/head.html"
                         <div class="terminal-top">
                         </div>
                         <div class="terminal">
-                            <code>
+                            <code style="white-space: pre-line">
                                 <span class="code-title"># Backup, encrypt and transfer</span>
-                                <br/>$ mysqldump --all-databases|gzip|gpg -ac -o-|curl -X PUT --upload-file "-" https://transfer.sh/test.txt</code>
+                                $ mysqldump --all-databases|gzip|gpg -ac -o-|curl -X PUT --upload-file "-" https://transfer.sh/test.txt
+                            </code>
                         </div>
                     </div>
                 </div>
@@ -245,9 +245,9 @@ include "includes/head.html"
                         <div class="terminal-top">
                         </div>
                         <div class="terminal">
-                            <code>
-                                <span class="code-title"># Transfer and send email with link (uses shell function)</span>
-                                <br/>$ transfer /tmp/hello.txt | mail -s "Hello World" user@yourmaildomain.com
+                            <code style="white-space: pre-line">
+                                <span class="code-title"># Transfer and send email with link (uses alias)</span>
+                                $ transfer /tmp/hello.txt | mail -s "Hello World" user@yourmaildomain.com
                             </code>
                         </div>
                     </div>
@@ -256,13 +256,13 @@ include "includes/head.html"
                         <div class="terminal-top">
                         </div>
                         <div class="terminal">
-                            <code>
+                            <code style="white-space: pre-line">
                                 <span class="code-title"># Import keys from keybase</span>
-                                <br/>$ keybase track [them]
+                                $ keybase track [them]
                                 <span class="code-title"># Encrypt for recipient(s)</span>
-                                <br/>$ cat somebackupfile.tar.gz | keybase encrypt [them] | curl --upload-file '-' https://transfer.sh/test.txt
+                                $ cat somebackupfile.tar.gz | keybase encrypt [them] | curl --upload-file '-' https://transfer.sh/test.txt
                                 <span class="code-title"># Decrypt</span>
-                                <br/>$ curl https://transfer.sh/sqUFi/test.md |keybase decrypt
+                                $ curl https://transfer.sh/sqUFi/test.md |keybase decrypt
                             </code>
                         </div>
                     </div>
@@ -273,9 +273,9 @@ include "includes/head.html"
                         <div class="terminal-top">
                         </div>
                         <div class="terminal">
-                            <code>
+                            <code style="white-space: pre-line">
                                 <span class="code-title"># wget</span>
-                                <br/>$ wget --method PUT --body-file=/tmp/file.tar https://transfer.sh/file.tar -O - -nv
+                                $ wget --method PUT --body-file=/tmp/file.tar https://transfer.sh/file.tar -O - -nv
                             </code>
                         </div>
                     </div>
@@ -284,9 +284,9 @@ include "includes/head.html"
                         <div class="terminal-top">
                         </div>
                         <div class="terminal">
-                            <code>
+                            <code style="white-space: pre-line">
                                 <span class="code-title"># grep syslog for pound and transfer</span>
-                                <br/>$ cat /var/log/syslog|grep pound|curl --upload-file - https://transfer.sh/pound.log
+                                $ cat /var/log/syslog|grep pound|curl --upload-file - https://transfer.sh/pound.log
                             </code>
                         </div>
                     </div>
@@ -298,9 +298,9 @@ include "includes/head.html"
                         <div class="terminal-top">
                         </div>
                         <div class="terminal">
-                            <code>
+                            <code style="white-space: pre-line">
                                 <span class="code-title"># Upload using Powershell
-                                <br/>
+
                                 PS H:\&gt; invoke-webrequest -method put -infile .\file.txt https://transfer.sh/file.txt
                             </code>
                         </div>
@@ -310,9 +310,9 @@ include "includes/head.html"
                         <div class="terminal-top">
                         </div>
                         <div class="terminal">
-                            <code>
+                            <code style="white-space: pre-line">
                                 <span class="code-title"># HTTPie
-                                <br/>
+
                                 $ http https://transfer.sh/ -vv &lt; /tmp/test.log
                             </code>
                         </div>
@@ -324,7 +324,7 @@ include "includes/head.html"
                         <div class="terminal-top">
                         </div>
                         <div class="terminal">
-                            <code>
+                            <code style="white-space: pre-line">
                                 <span class="code-title"># Your awesome sample will be put here</span>
                             </code>
                         </div>
