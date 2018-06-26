@@ -6026,6 +6026,10 @@ a:hover {
 .terminal code {
   font-family: "Droid Sans Mono", monospace;
 }
+#web .code-wrapper,
+.terminal .code-wrapper {
+  white-space: pre-line;
+}
 #web {
   margin-top: -2px;
   padding-top: 0;
