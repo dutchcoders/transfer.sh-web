@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
     // Smooth scrolling
+    /*
     $('a[href*=#]:not([href=#])').click(function() {
         if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
             var target = $(this.hash);
@@ -13,6 +14,7 @@ $(document).ready(function() {
             }
         }
     });
+    */
 
 });
 
@@ -76,7 +78,6 @@ $(document).ready(function() {
 
         // start upload
         xhr.open("PUT", '/' + file.name, true);
-        xhr.setRequestHeader("X_FILENAME", file.name);
         xhr.send(file);
     };
 

@@ -12,7 +12,6 @@ include "includes/head.html"
 
     include "includes/ga.html"
     include "includes/navigation.html"
-    
 
     <section id="home">
         <div class="wrapper">
@@ -25,19 +24,21 @@ include "includes/head.html"
 
                     </div>
                     <div id="terminal" class="terminal preview-image">
-                        <video  controls>
-                            <source src="{{.Url}}" type="{{.ContentType}}">
-                        </video>
+                        <video data-color="#f6f8f8" src="{{.Url}}" type="{{.ContentType}}"></video>
                     </div>
                 </div>
             </div>
             <br/>
-            <div>
+            </div>
 
     </section>
 
-    include "includes/footer.html" 
+    include "includes/footer.html"
     include "includes/js.html"
+
+    <!-- build:js /scripts/ckin.js -->
+    <script src="/scripts/ckin.js"></script>
+    <!-- endbuild -->
 
 </body>
 

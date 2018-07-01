@@ -4,3 +4,6 @@
         <h4>size: <b>{{.ContentLength | format "#,###."}}</b> bytes</h4>
 
         <a href="{{.Url}}" class="btn-cta btn"> download</i> </a> <br/><br/>
+        <div class="qrcode">
+                <img src="data:image/png;base64,{{.QRCode}}"/>
+        </div>
