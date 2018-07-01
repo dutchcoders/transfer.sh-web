@@ -60,6 +60,9 @@
         <h2>
             {{.Filename}}</h2>
         <a href="{{.Url}}"></a>
+        <div class="qrcode">
+            <img scr="data:image/png;base64,{{.QRCode}}"/>
+        </div>
         <div class="row animated fadeInDown">
             <div id="from-terminal" class=" box col-md-8  col-md-offset-2 col-xs-12">
                 <div class="terminal-top">
