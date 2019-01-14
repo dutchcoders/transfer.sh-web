@@ -224,7 +224,7 @@ players.forEach(function (player) {
   fullScreenButton.addEventListener('click', function (e) {
     return toggleFullScreen(player, fullScreenButton);
   });
-  addListenerMuli(player, 'webkitfullscreenchange mozfullscreenchange fullscreenchange MSFullscreenChange', function (e) {
+  addListenerMulti(player, 'webkitfullscreenchange mozfullscreenchange fullscreenchange MSFullscreenChange', function (e) {
     return onFullScreen(e, player);
   });
 });
