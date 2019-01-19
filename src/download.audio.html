@@ -25,7 +25,13 @@ include "includes/head.html"
 
                     </div>
                     <div id="terminal" class="terminal preview-image">
-                        <audio data-color="#f6f8f8" src="{{.Url}}" type="{{.ContentType}}"></audio>
+                        <audio id="video-player"
+                               class="video-js"
+                               controls
+                               preload="auto"
+                               data-setup='{}'>
+                            <source src="{{.Url}}" type="{{.ContentType}}"></source>
+                        </audio>
                     </div>
                 </div>
             </div>
@@ -37,8 +43,8 @@ include "includes/head.html"
     include "includes/footer.html" 
     include "includes/js.html"
 
-    <!-- build:js /scripts/ckin.js -->
-    <script src="/scripts/ckin.js"></script>
+    <!-- build:js /scripts/vendor/video.js -->
+    <script src="bower_components/videojs/src/js/video.js"></script>
     <!-- endbuild -->
 
 </body>
