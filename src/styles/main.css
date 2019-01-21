@@ -6562,8 +6562,8 @@ html {
 #md-preview {
   padding-bottom: 30px;
 }
-
-video, audio {
+video,
+audio {
   margin: 0 auto;
   width: 100%;
 }
