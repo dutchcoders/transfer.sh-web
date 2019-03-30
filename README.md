@@ -5,7 +5,7 @@ This repository contains the web frontend for [transfer.sh](https://github.com/d
 
 ## How to use it 
 
-You must specify `web-path`directory, pointing to `dist` generated folder (Grunt & bindata)
+You must specify `web-path` directory, pointing to `dist` generated folder (Grunt & bindata)
 
 Sample :
 ```

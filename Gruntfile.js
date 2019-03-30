@@ -133,24 +133,49 @@ module.exports = function (grunt) {
             server: {
                 cwd: '<%= yeoman.app %>',
                 src: ['*.html', 'includes/*.html'],
-                dest: '.tmp/',
+                dest: '.tmp',
                 options: {
                     flatten: true,
                     banner: ''
                 }
             }
         },
-        // not used since Uglify task does concat,
-        // but still available if needed
-        /*concat: {
-      dist: {}
-    },*/
-        // not enabled since usemin task does concat and uglify
-        // check index.html to edit your build targets
-        // enable this task if you prefer defining your build targets here
-        /*uglify: {
-      dist: {}
-    },*/
+        concat: {
+            generated: {
+                files: [
+                    {
+                        dest: '.tmp/scripts/main.js',
+                        src: ['<%= yeoman.app %>/scripts/main.js']
+                    },
+                    {
+                        dest: '.tmp/scripts/vendor/modernizr.js',
+                        src: ['<%= yeoman.app %>/scripts/vendor/modernizr.js']
+                    },
+                    {
+                        dest: '.tmp/scripts/vendor/video.js',
+                        src: ['<%= yeoman.app %>/scripts/vendor/video.js']
+                    }
+                ]
+            }
+        },
+        uglify: {
+            generated: {
+                files: [
+                    {
+                        dest: '<%= yeoman.dist %>/scripts/main.js',
+                        src: ['.tmp/scripts/main.js']
+                    },
+                    {
+                        dest: '<%= yeoman.dist %>/scripts/vendor/modernizr.js',
+                        src: ['.tmp/scripts/vendor/modernizr.js']
+                    },
+                    {
+                        dest: '<%= yeoman.dist %>/scripts/vendor/video.js',
+                        src: ['.tmp/scripts/vendor/video.js']
+                    }
+                ]
+            }
+        },
         rev: {
             dist: {
                 files: {
@@ -232,7 +257,8 @@ module.exports = function (grunt) {
                 }
             }
         }
-        ,copy: {
+        ,
+        copy: {
             dist: {
                 files: [{
                     expand: true,
@@ -300,12 +326,12 @@ module.exports = function (grunt) {
         'clean:server',
         'less',
         'copy:server',
-        'connect:test',
+        'connect:test'
     ]);
 
     grunt.registerTask('build', [
         'clean:dist',
-        'npm-command',
+        //'npm-command',
         'copy:server',
         'useminPrepare',
         'concurrent',
@@ -314,8 +340,7 @@ module.exports = function (grunt) {
         'includes:build',
         'uglify',
         'copy',
-        'usemin',
-
+        'usemin'
     ]);
 
     grunt.registerTask('default', [
