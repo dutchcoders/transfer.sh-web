@@ -331,7 +331,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
-        //'npm-command',
+        'npm-command',
         'copy:server',
         'useminPrepare',
         'concurrent',
