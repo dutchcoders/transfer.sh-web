@@ -43,11 +43,11 @@ include "includes/navigation.html"
                 </div>
                 <div id="terminal" class="terminal">
                     <code class="code-wrapper"><span class="code-title"># Upload using cURL</span>
-                        $ curl --upload-file ./hello.txt {{.WebAddress}}/hello.txt {{.WebAddress}}/66nb8/hello.txt
+                        $ curl --upload-file ./hello.txt {{.WebAddress}}hello.txt {{.WebAddress}}66nb8/hello.txt
 
                         <span class="code-title"># Using the shell function</span>
                         $ transfer hello.txt
-                        ##################################################### 100.0% {{.WebAddress}}/eibhM/hello.txt
+                        ##################################################### 100.0% {{.WebAddress}}eibhM/hello.txt
                     </code>
                 </div>
                 <div id="web">
@@ -137,14 +137,14 @@ include "includes/navigation.html"
                 </div>
                 <div class="terminal">
                     <code class="code-wrapper"><span class="code-title"># Uploading is easy using curl</span>
-                        $ curl --upload-file ./hello.txt {{.WebAddress}}/hello.txt
-                    {{.WebAddress}}/66nb8/hello.txt
+                        $ curl --upload-file ./hello.txt {{.WebAddress}}hello.txt
+                    {{.WebAddress}}66nb8/hello.txt
 
-                        $ curl -H "Max-Downloads: 1" -H "Max-Days: 5" --upload-file ./hello.txt {{.WebAddress}}/hello.txt
-                    {{.WebAddress}}/66nb8/hello.txt
+                        $ curl -H "Max-Downloads: 1" -H "Max-Days: 5" --upload-file ./hello.txt {{.WebAddress}}hello.txt
+                    {{.WebAddress}}66nb8/hello.txt
 
                         <span class="code-title"># Download the file</span>
-                        $ curl {{.WebAddress}}/66nb8/hello.txt -o hello.txt
+                        $ curl {{.WebAddress}}66nb8/hello.txt -o hello.txt
                     </code>
                 </div>
             </div>
@@ -154,7 +154,7 @@ include "includes/navigation.html"
                 </div>
                 <div class="terminal">
                     <code class="code-wrapper"><span class="code-title"># Add this to .bashrc or .zshrc or its equivalent</span>
-                        transfer(){ if [ $# -eq 0 ];then echo &quot;No arguments specified.\nUsage:\n  transfer &lt;file|directory&gt;\n  ... | transfer &lt;file_name&gt;&quot;&gt;&amp;2;return 1;fi;if tty -s;then file=&quot;$1&quot;;file_name=$(basename &quot;$file&quot;);if [ ! -e &quot;$file&quot; ];then echo &quot;$file: No such file or directory&quot;&gt;&amp;2;return 1;fi;if [ -d &quot;$file&quot; ];then file_name=&quot;$file_name.zip&quot; ,;(cd &quot;$file&quot;&amp;&amp;zip -r -q - .)|curl --progress-bar --upload-file &quot;-&quot; &quot;{{.WebAddress}}/$file_name&quot;|tee /dev/null,;else cat &quot;$file&quot;|curl --progress-bar --upload-file &quot;-&quot; &quot;{{.WebAddress}}/$file_name&quot;|tee /dev/null;fi;else file_name=$1;curl --progress-bar --upload-file &quot;-&quot; &quot;{{.WebAddress}}/$file_name&quot;|tee /dev/null;fi;}
+                        transfer(){ if [ $# -eq 0 ];then echo &quot;No arguments specified.\nUsage:\n  transfer &lt;file|directory&gt;\n  ... | transfer &lt;file_name&gt;&quot;&gt;&amp;2;return 1;fi;if tty -s;then file=&quot;$1&quot;;file_name=$(basename &quot;$file&quot;);if [ ! -e &quot;$file&quot; ];then echo &quot;$file: No such file or directory&quot;&gt;&amp;2;return 1;fi;if [ -d &quot;$file&quot; ];then file_name=&quot;$file_name.zip&quot; ,;(cd &quot;$file&quot;&amp;&amp;zip -r -q - .)|curl --progress-bar --upload-file &quot;-&quot; &quot;{{.WebAddress}}$file_name&quot;|tee /dev/null,;else cat &quot;$file&quot;|curl --progress-bar --upload-file &quot;-&quot; &quot;{{.WebAddress}}$file_name&quot;|tee /dev/null;fi;else file_name=$1;curl --progress-bar --upload-file &quot;-&quot; &quot;{{.WebAddress}}$file_name&quot;|tee /dev/null;fi;}
 
                         <span class="code-title"># Now you can use transfer function</span>
                         $ transfer hello.txt
@@ -174,11 +174,11 @@ include "includes/navigation.html"
                     </div>
                     <div class="terminal">
                         <code class="code-wrapper">
-                            $ curl -i -F filedata=@/tmp/hello.txt -F filedata=@/tmp/hello2.txt {{.WebAddress}}/
+                            $ curl -i -F filedata=@/tmp/hello.txt -F filedata=@/tmp/hello2.txt {{.WebAddress}}
 
                             <span class="code-title"># Combining downloads as zip or tar archive</span>
-                            $ curl {{.WebAddress}}/(15HKz/hello.txt,15HKz/hello.txt).tar.gz
-                            $ curl {{.WebAddress}}/(15HKz/hello.txt,15HKz/hello.txt).zip
+                            $ curl {{.WebAddress}}(15HKz/hello.txt,15HKz/hello.txt).tar.gz
+                            $ curl {{.WebAddress}}(15HKz/hello.txt,15HKz/hello.txt).zip
                         </code>
                     </div>
 
@@ -190,10 +190,10 @@ include "includes/navigation.html"
                     </div>
                     <div class="terminal">
                         <code class="code-wrapper"><span class="code-title"># Encrypt files with password using gpg</span>
-                            $ cat /tmp/hello.txt|gpg -ac -o-|curl -X PUT --upload-file "-" {{.WebAddress}}/test.txt
+                            $ cat /tmp/hello.txt|gpg -ac -o-|curl -X PUT --upload-file "-" {{.WebAddress}}test.txt
 
                             <span class="code-title"># Download and decrypt</span>
-                            $ curl {{.WebAddress}}/1lDau/test.txt|gpg -o- > /tmp/hello.txt
+                            $ curl {{.WebAddress}}1lDau/test.txt|gpg -o- > /tmp/hello.txt
                         </code>
                     </div>
                 </div>
@@ -207,10 +207,10 @@ include "includes/navigation.html"
                     <div class="terminal">
                         <code class="code-wrapper"><span class="code-title"># Scan for malware or viruses using Clamav</span>
                             $ wget http://www.eicar.org/download/eicar.com
-                            $ curl -X PUT --upload-file ./eicar.com {{.WebAddress}}/eicar.com/scan
+                            $ curl -X PUT --upload-file ./eicar.com {{.WebAddress}}eicar.com/scan
 
                             <span class="code-title"># Upload malware to VirusTotal, get a permalink in return</span>
-                            $ curl -X PUT --upload-file nhgbhhj {{.WebAddress}}/test.txt/virustotal
+                            $ curl -X PUT --upload-file nhgbhhj {{.WebAddress}}test.txt/virustotal
                         </code>
                     </div>
                 </div>
@@ -220,7 +220,7 @@ include "includes/navigation.html"
                     </div>
                     <div class="terminal">
                         <code class="code-wrapper"><span class="code-title"># Backup, encrypt and transfer</span>
-                            $ mysqldump --all-databases|gzip|gpg -ac -o-|curl -X PUT --upload-file "-" {{.WebAddress}}/test.txt</code>
+                            $ mysqldump --all-databases|gzip|gpg -ac -o-|curl -X PUT --upload-file "-" {{.WebAddress}}test.txt</code>
                     </div>
                 </div>
             </div>
@@ -243,9 +243,9 @@ include "includes/navigation.html"
                         <code class="code-wrapper"><span class="code-title"># Import keys from keybase</span>
                             $ keybase track [them]
                             <span class="code-title"># Encrypt for recipient(s)</span>
-                            $ cat somebackupfile.tar.gz | keybase encrypt [them] | curl --upload-file '-' {{.WebAddress}}/test.txt
+                            $ cat somebackupfile.tar.gz | keybase encrypt [them] | curl --upload-file '-' {{.WebAddress}}test.txt
                             <span class="code-title"># Decrypt</span>
-                            $ curl {{.WebAddress}}/sqUFi/test.md |keybase decrypt
+                            $ curl {{.WebAddress}}sqUFi/test.md |keybase decrypt
                         </code>
                     </div>
                 </div>
@@ -257,7 +257,7 @@ include "includes/navigation.html"
                     </div>
                     <div class="terminal">
                         <code class="code-wrapper"><span class="code-title"># wget</span>
-                            $ wget --method PUT --body-file=/tmp/file.tar {{.WebAddress}}/file.tar -O - -nv
+                            $ wget --method PUT --body-file=/tmp/file.tar {{.WebAddress}}file.tar -O - -nv
                         </code>
                     </div>
                 </div>
@@ -267,7 +267,7 @@ include "includes/navigation.html"
                     </div>
                     <div class="terminal">
                         <code class="code-wrapper"><span class="code-title"># grep syslog for pound and transfer</span>
-                            $ cat /var/log/syslog|grep pound|curl --upload-file - {{.WebAddress}}/pound.log
+                            $ cat /var/log/syslog|grep pound|curl --upload-file - {{.WebAddress}}pound.log
                         </code>
                     </div>
                 </div>
@@ -280,7 +280,7 @@ include "includes/navigation.html"
                     </div>
                     <div class="terminal">
                         <code class="code-wrapper"><span class="code-title"># Upload using Powershell</span>
-                            PS H:\&gt; invoke-webrequest -method put -infile .\file.txt {{.WebAddress}}/file.txt
+                            PS H:\&gt; invoke-webrequest -method put -infile .\file.txt {{.WebAddress}}file.txt
                         </code>
                     </div>
                 </div>
@@ -290,7 +290,7 @@ include "includes/navigation.html"
                     </div>
                     <div class="terminal">
                         <code class="code-wrapper"><span class="code-title"># HTTPie</span>
-                            $ http {{.WebAddress}}/ -vv &lt; /tmp/test.log
+                            $ http {{.WebAddress}} -vv &lt; /tmp/test.log
                         </code>
                     </div>
                 </div>
@@ -305,7 +305,7 @@ include "includes/navigation.html"
                             <span class="code-title"># transfersh-cli (https://github.com/tanrax/transfersh-cli)</span>
                             $ trasnfersh photos.zip
                             <span class="code-title"># Uploading file</span>
-                            <span class="code-title"># Download from here: {{.WebAddress}}/xxxxxx/photos.zip</span>
+                            <span class="code-title"># Download from here: {{.WebAddress}}xxxxxx/photos.zip</span>
                             <span class="code-title"># It has also been copied to the clipboard!</span>
                         </code>
                     </div>

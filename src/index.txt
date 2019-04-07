@@ -3,35 +3,35 @@
 made with <3 by DutchCoders 
 
 Upload:
-$ curl --upload-file ./hello.txt {{.WebAddress}}/hello.txt
+$ curl --upload-file ./hello.txt {{.WebAddress}}hello.txt
 
 Encrypt & upload:
-$ cat /tmp/hello.txt|gpg -ac -o-|curl -X PUT --upload-file "-" {{.WebAddress}}/test.txt
+$ cat /tmp/hello.txt|gpg -ac -o-|curl -X PUT --upload-file "-" {{.WebAddress}}test.txt
 
 Download & decrypt:
-$ curl {{.WebAddress}}/1lDau/test.txt|gpg -o- > /tmp/hello.txt
+$ curl {{.WebAddress}}1lDau/test.txt|gpg -o- > /tmp/hello.txt
 
 Grep pound from syslog and transfer
-cat /var/log/syslog|grep pound|curl --upload-file - {{.WebAddress}}/pound.log 
+cat /var/log/syslog|grep pound|curl --upload-file - {{.WebAddress}}pound.log
 
 Using Keybase:
 # import keys from keybase
 $ keybase track [them]
 
 # encrypt for recipients
-$ cat somebackupfile.tar.gz | keybase encrypt [them] | curl --upload-file '-' {{.WebAddress}}/test.txt
+$ cat somebackupfile.tar.gz | keybase encrypt [them] | curl --upload-file '-' {{.WebAddress}}test.txt
 
 # decrypt
-$ curl {{.WebAddress}}/sqUFi/test.md |keybase decrypt
+$ curl {{.WebAddress}}sqUFi/test.md |keybase decrypt
 
 Upload to Virustotal:
-$ curl -X PUT --upload-file nhgbhhj {{.WebAddress}}/test.txt/virustotal
+$ curl -X PUT --upload-file nhgbhhj {{.WebAddress}}test.txt/virustotal
 
 Virusscan:
-$ curl -X PUT --upload-file nhgbhhj {{.WebAddress}}/test.txt/scan
+$ curl -X PUT --upload-file nhgbhhj {{.WebAddress}}test.txt/scan
 
 Add shell function to .bashrc or .zshrc or its equivalent:
 ===
-transfer(){ if [ $# -eq 0 ];then echo "No arguments specified.\nUsage:\n  transfer <file|directory>\n  ... | transfer <file_name>">&2;return 1;fi;if tty -s;then file="$1";file_name=$(basename "$file");if [ ! -e "$file" ];then echo "$file: No such file or directory">&2;return 1;fi;if [ -d "$file" ];then file_name="$file_name.zip" ,;(cd "$file"&&zip -r -q - .)|curl --progress-bar --upload-file "-" "{{.WebAddress}}/$file_name"|tee /dev/null,;else cat "$file"|curl --progress-bar --upload-file "-" "{{.WebAddress}}/$file_name"|tee /dev/null;fi;else file_name=$1;curl --progress-bar --upload-file "-" "{{.WebAddress}}/$file_name"|tee /dev/null;fi;}
+transfer(){ if [ $# -eq 0 ];then echo "No arguments specified.\nUsage:\n  transfer <file|directory>\n  ... | transfer <file_name>">&2;return 1;fi;if tty -s;then file="$1";file_name=$(basename "$file");if [ ! -e "$file" ];then echo "$file: No such file or directory">&2;return 1;fi;if [ -d "$file" ];then file_name="$file_name.zip" ,;(cd "$file"&&zip -r -q - .)|curl --progress-bar --upload-file "-" "{{.WebAddress}}$file_name"|tee /dev/null,;else cat "$file"|curl --progress-bar --upload-file "-" "{{.WebAddress}}/$file_name"|tee /dev/null;fi;else file_name=$1;curl --progress-bar --upload-file "-" "{{.WebAddress}}/$file_name"|tee /dev/null;fi;}
 ===
 $ transfer test.txt
