@@ -145,7 +145,14 @@ module.exports = function (grunt) {
                 files: [
                     {
                         dest: '.tmp/scripts/main.js',
-                        src: ['<%= yeoman.app %>/scripts/main.js']
+                        src: [
+                            '<%= yeoman.app %>/bower_components/jquery/dist/jquery.js',
+                            '<%= yeoman.app %>/bower_components/uri.js/src/URI.min.js',
+                            '<%= yeoman.app %>/bower_components/bootstrap/js/transition.js',
+                            '<%= yeoman.app %>/bower_components/bootstrap/js/collapse.js',
+                            '<%= yeoman.app %>/scripts/showdown.js',
+                            '<%= yeoman.app %>/scripts/base.js'
+                        ]
                     },
                     {
                         dest: '.tmp/scripts/vendor/modernizr.js',
@@ -160,6 +167,10 @@ module.exports = function (grunt) {
         },
         uglify: {
             generated: {
+                options: {
+                    mangle: {},
+                    compress: {}
+                },
                 files: [
                     {
                         dest: '<%= yeoman.dist %>/scripts/main.js',
@@ -186,19 +197,6 @@ module.exports = function (grunt) {
                         '<%= yeoman.dist %>/fonts/{,*/}*.*'
                     ]
                 }
-            }
-        },
-        useminPrepare: {
-            html: '<%= yeoman.app %>/*.html',
-            options: {
-                dest: '<%= yeoman.dist %>'
-            }
-        },
-        usemin: {
-            html: ['<%= yeoman.dist %>/{,*/}*.html'],
-            css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
-            options: {
-                dirs: ['<%= yeoman.dist %>']
             }
         },
         imagemin: {
@@ -256,8 +254,7 @@ module.exports = function (grunt) {
                     cwd: '<%= yeoman.app %>/bower_components/videojs/'
                 }
             }
-        }
-        ,
+        },
         copy: {
             dist: {
                 files: [{
@@ -333,14 +330,12 @@ module.exports = function (grunt) {
         'clean:dist',
         'npm-command',
         'copy:server',
-        'useminPrepare',
         'concurrent',
         'cssmin',
         'concat',
         'includes:build',
         'uglify',
-        'copy',
-        'usemin'
+        'copy'
     ]);
 
     grunt.registerTask('default', [
