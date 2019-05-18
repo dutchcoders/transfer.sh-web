@@ -75,7 +75,7 @@ $(document).ready(function() {
         queue.push(xhr);
 
         // start upload
-        xhr.open("PUT", '/' + file.name, true);
+        xhr.open("PUT", './' + file.name, true);
         xhr.send(file);
     };
 

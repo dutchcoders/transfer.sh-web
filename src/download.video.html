@@ -6,44 +6,44 @@
 <html class="no-js">
 <!--<![endif]-->
 
-include "includes/head.html"
+include "includes/download-head.html"
 
 <body  id="download">
-    <!-- build:js /scripts/vendor/video.js -->
-    <script src="bower_components/videojs/dist/video.min.js"></script>
-    <!-- endbuild -->
+<!-- build:js ../scripts/vendor/video.js -->
+<script src="bower_components/videojs/dist/video.min.js"></script>
+<!-- endbuild -->
 
-    include "includes/ga.html"
-    include "includes/navigation.html"
+include "includes/ga.html"
+include "includes/download-navigation.html"
 
-    <section id="home">
-        <div class="wrapper">
-    
-            include "includes/download-top.html"
+<section id="home">
+    <div class="wrapper">
 
-            <div class="row animated fadeInDown">
-                <div id="from-terminal" class=" box col-md-8  col-md-offset-2 col-xs-12">
-                    <div class="terminal-top">
+        include "includes/download-top.html"
 
-                    </div>
-                    <div id="terminal" class="terminal preview-image">
-                        <video id="video-player"
-                               class="video-js vjs-default-skin"
-                               controls
-                               preload="auto"
-                               data-setup='{}'>
-                            <source src="{{.Url}}" type="{{.ContentType}}"></source>
-                        </video>
-                    </div>
+        <div class="row animated fadeInDown">
+            <div id="from-terminal" class=" box col-md-8  col-md-offset-2 col-xs-12">
+                <div class="terminal-top">
+
+                </div>
+                <div id="terminal" class="terminal preview-image">
+                    <video id="video-player"
+                           class="video-js vjs-default-skin"
+                           controls
+                           preload="auto"
+                           data-setup='{}'>
+                        <source src="{{.Url}}" type="{{.ContentType}}"></source>
+                    </video>
                 </div>
             </div>
-            <br/>
-            </div>
+        </div>
+        <br/>
+    </div>
 
-    </section>
+</section>
 
-    include "includes/footer.html"
-    include "includes/js.html"
+include "includes/download-footer.html"
+include "includes/download-js.html"
 
 </body>
 
