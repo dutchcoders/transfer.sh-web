@@ -156,11 +156,11 @@ module.exports = function (grunt) {
                     },
                     {
                         dest: '.tmp/scripts/vendor/modernizr.js',
-                        src: ['<%= yeoman.app %>/scripts/vendor/modernizr.js']
+                        src: ['<%= yeoman.app %>/bower_components/modernizr/modernizr.js']
                     },
                     {
                         dest: '.tmp/scripts/vendor/video.js',
-                        src: ['<%= yeoman.app %>/scripts/vendor/video.js']
+                        src: ['<%= yeoman.app %>/bower_components/videojs/dist/video.js']
                     }
                 ]
             }
