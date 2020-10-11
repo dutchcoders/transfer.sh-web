@@ -244,6 +244,7 @@ module.exports = function (grunt) {
         'npm-command': {
             'videojs-install': {
                 options: {
+                    cmd: 'install',
                     cwd: '<%= yeoman.app %>/bower_components/videojs/'
                 }
             },
