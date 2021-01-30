@@ -185,7 +185,7 @@ include "includes/navigation.html"
 
                 </div>
                 <div class="col-md-6 ">
-                    <h3>Encrypt your files before the transfer</h3>
+                    <h3>Encrypt your files with gpg before the transfer</h3>
                     <div class="terminal-top">
                     </div>
                     <div class="terminal">
@@ -295,6 +295,7 @@ include "includes/navigation.html"
                     </div>
                 </div>
             </div>
+            
             <div class="row">
                 <div class="col-md-6">
                     <h3>Upload a file using Unofficially client in Python</h3>
@@ -310,6 +311,64 @@ include "includes/navigation.html"
                         </code>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <h3>Encrypt your files with openssl before the transfer</h3>
+                    <div class="terminal-top">
+                    </div>
+                    <div class="terminal">
+                        <code class="code-wrapper"><span class="code-title"># Encrypt files with password using openssl</span>
+                            $ cat /tmp/hello.txt|openssl aes-256-cbc -pbkdf2 -e|curl -X PUT --upload-file "-" {{.WebAddress}}test.txt
+
+                            <span class="code-title"># Download and decrypt</span>
+                            $ curl {{.WebAddress}}1lDau/test.txt|openssl aes-256-cbc -pbkdf2 -d > /tmp/hello.txt
+                        </code>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Upload a file or directory in Windows</h3>
+                    <div class="terminal-top">
+                    </div>
+                    <div class="terminal">
+                        <code class="code-wrapper"><span class="code-title">#Save this as transfer.cmd in Windows 10 (which has curl.exe)</span>
+@echo off
+setlocal EnableDelayedExpansion EnableExtensions
+goto main
+:usage
+  echo No arguments specified. &gt;&amp;2
+  echo Usage: &gt;&amp;2
+  echo   transfer ^&lt;file^|directory^&gt; &gt;&amp;2        
+  echo   ... ^| transfer ^&lt;file_name^&gt; &gt;&amp;2       
+  exit /b 1
+:main
+  if "%~1" == "" goto usage
+  timeout.exe /t 0 &gt;nul 2&gt;nul || goto not_tty
+  set "file=%~1"
+  for %%A in ("%file%") do set "file_name=%%~nxA"
+  if exist "%file_name%" goto file_exists
+    echo %file%: No such file or directory &gt;&amp;2
+    exit /b 1
+:file_exists
+  if not exist "%file%\" goto not_a_directory
+  set "file_name=%file_name%.zip"
+  pushd "%file%" || exit /b 1
+  set "full_name=%temp%\%file_name%"
+  powershell.exe -Command "Get-ChildItem -Path . -Recurse | Compress-Archive -DestinationPath ""%full_name%"""
+  curl.exe --progress-bar --upload-file "%full_name%" "{{.WebAddress}}%file_name%"
+  popd
+  goto :eof
+:not_a_directory
+  curl.exe --progress-bar --upload-file "%file%" "{{.WebAddress}}%file_name%"
+  goto :eof
+:not_tty
+  set "file_name=%~1"
+  curl.exe --progress-bar --upload-file - "{{.WebAddress}}%file_name%"
+  goto :eof
+                        </code>
+                    </div>
+                </div>               
                 <div class="col-md-6">
                     <h3>Send us your awesome example</h3>
                     <div class="terminal-top">
