@@ -5,11 +5,17 @@ made with <3 by DutchCoders
 Upload:
 $ curl --upload-file ./hello.txt {{.WebAddress}}hello.txt
 
-Encrypt & upload:
+Encrypt with gpg & upload:
 $ cat /tmp/hello.txt|gpg -ac -o-|curl -X PUT --upload-file "-" {{.WebAddress}}test.txt
 
-Download & decrypt:
+Download & decrypt with gpg:
 $ curl {{.WebAddress}}1lDau/test.txt|gpg -o- > /tmp/hello.txt
+
+Encrypt with openssl & upload:
+$ cat /tmp/hello.txt|openssl aes-256-cbc -pbkdf2 -e|curl -X PUT --upload-file "-" {{.WebAddress}}test.txt
+
+Download & decrypt with openssl:
+$ curl {{.WebAddress}}1lDau/test.txt|openssl aes-256-cbc -pbkdf2 -d > /tmp/hello.txt
 
 Grep pound from syslog and transfer
 cat /var/log/syslog|grep pound|curl --upload-file - {{.WebAddress}}pound.log
