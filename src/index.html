@@ -189,11 +189,11 @@ include "includes/navigation.html"
                     <div class="terminal-top">
                     </div>
                     <div class="terminal">
-                        <code class="code-wrapper"><span class="code-title"># Encrypt files with password using gpg</span>
-                            $ cat /tmp/hello.txt|gpg -ac -o-|curl -X PUT --upload-file "-" {{.WebAddress}}test.txt
+                        <code class="code-wrapper"><span class="code-title"># Encrypt files with password using openssl</span>
+                            $ cat /tmp/hello.txt|openssl aes-256-cbc -pbkdf2 -e|curl -X PUT --upload-file "-" {{.WebAddress}}test.txt
 
                             <span class="code-title"># Download and decrypt</span>
-                            $ curl {{.WebAddress}}1lDau/test.txt|gpg -o- > /tmp/hello.txt
+                            $ curl {{.WebAddress}}1lDau/test.txt|openssl aes-256-cbc -pbkdf2 -d > /tmp/hello.txt
                         </code>
                     </div>
                 </div>
