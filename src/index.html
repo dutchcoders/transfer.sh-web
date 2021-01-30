@@ -325,11 +325,9 @@ goto main
   echo   transfer ^&lt;file^|directory^&gt; &gt;&amp;2        
   echo   ... ^| transfer ^&lt;file_name^&gt; &gt;&amp;2       
   exit /b 1
-  goto :eof
 :main
   if "%~1" == "" goto usage
-  timeout.exe -t 0 2&gt;nul
-  if %errorlevel% equ 0 goto not_tty
+  timeout.exe /t 0 &gt;nul 2&gt;nul || goto not_tty
   set "file=%~1"
   for %%A in ("%file%") do set "file_name=%%~nxA"
   if exist "%file_name%" goto file_exists
