@@ -35,25 +35,25 @@ include "includes/navigation.html"
 <section id="home">
     <div class="wrapper">
         <h2 class="page-title">
-            Easy file sharing from the command line</h2>
+            通过命令行轻松共享文件</h2>
         <div class="row animated fadeInDown">
             <div id="from-terminal" class="box col-md-8 col-md-offset-2 col-xs-12">
                 <div class="terminal-top">
 
                 </div>
                 <div id="terminal" class="terminal">
-                    <code class="code-wrapper"><span class="code-title"># Upload using cURL</span>
+                    <code class="code-wrapper"><span class="code-title"># 使用cURL上传方法</span>
                         $ curl --upload-file ./hello.txt {{.WebAddress}}hello.txt {{.WebAddress}}66nb8/hello.txt
 
-                        <span class="code-title"># Using the shell function</span>
+                        <span class="code-title"># 终端命令方法</span>
                         $ transfer hello.txt
                         ##################################################### 100.0% {{.WebAddress}}eibhM/hello.txt
                     </code>
                 </div>
                 <div id="web">
                     <code class="code-wrapper">
-                        <span class="code-title"># Upload from web</span>
-                        Drag your files here, or <a class="browse" href="#"> click to browse.</a>
+                        <span class="code-title"># 网页上传</span>
+                        将文件拖放到此处, 或者 <a class="browse" href="#"> 点击此处上传.</a>
                     </code>
                     <input type="file" multiple="multiple" style='display: none;' />
                     <ul class='queue'>
@@ -63,7 +63,7 @@ include "includes/navigation.html"
                     <div class='all-files'>
                         <br>
                         <div>
-                            <span class="code-title"># Download all your files</span>
+                            <span class="code-title"># 下载所有文件</span>
                             <br/>
                             <br/>
                             <a class="download-zip btn-cta" href="#">zip</a> <a class="download-tar btn-cta" href="#">tar.gz</a>
@@ -85,33 +85,33 @@ include "includes/navigation.html"
         <div class="row  animated fadeInDown ">
             <div class="col-md-3 col-xs-6">
                 <i class="icon-terminal"></i>
-                <h3>Made for use with shell</h3>
+                <h3>专为终端设计</h3>
             </div>
             <div class="col-md-3 col-xs-6">
                 <i class="icon-link"></i>
-                <h3>Share files with a URL</h3>
+                <h3>URL链接分享</h3>
             </div>
             <div class="col-md-3 col-xs-6">
                 <i class="icon-database"></i>
-                <h3>Upload up to 10 GB</h3>
+                <h3>最大文件 10 GB</h3>
             </div>
             <div class="col-md-3 col-xs-6">
                 <i class="icon-clock"></i>
-                <h3>Files stored for 14 days</h3>
+                <h3>文件保留14天</h3>
             </div>
         </div>
         <div class="row  animated fadeInDown">
             <div class="col-md-offset-3 col-md-3 col-xs-6">
                 <i class="icon-tag"></i>
-                <h3>For free</h3>
+                <h3>免费</h3>
             </div>
             <div class="col-md-3 col-xs-6">
                 <i class="icon-lock"></i>
-                <h3>Encrypt your files</h3>
+                <h3>文件加密</h3>
             </div>
             <div class="col-md-3 col-xs-6">
                 <i class="icon-lock"></i>
-                <h3>Maximize amount of downloads</h3>
+                <h3>满速下载</h3>
             </div>
         </div>
     </div>
@@ -119,7 +119,7 @@ include "includes/navigation.html"
 
 <section id="share">
     <div class="wrapper">
-        <h2 class="page-title">Preview your files in the browser!</h2>
+        <h2 class="page-title">在浏览器中预览文件!</h2>
     </div>
 
 </section>
@@ -127,11 +127,11 @@ include "includes/navigation.html"
 <section id="samples">
     <div class="wrapper">
         <h2 class="page-title">
-            Sample use cases
+            使用案例
         </h2>
         <div class="row">
             <div class="col-md-6 ">
-                <h3>How to upload</h3>
+                <h3>怎么上传文件</h3>
                 <div class="terminal-top">
 
                 </div>
@@ -149,14 +149,14 @@ include "includes/navigation.html"
                 </div>
             </div>
             <div class="col-md-6 ">
-                <h3>Add shell function to .bashrc or .zshrc</a></h3>
+                <h3>使用.bashrc or .zshrc方法自定义终端命令</a></h3>
                 <div class="terminal-top">
                 </div>
                 <div class="terminal">
-                    <code class="code-wrapper"><span class="code-title"># Add this to .bashrc or .zshrc or its equivalent</span>
+                    <code class="code-wrapper"><span class="code-title"># 将代码添加到.bashrc 或者 .zshrc </span>
                         transfer(){ if [ $# -eq 0 ];then echo &quot;No arguments specified.\nUsage:\n  transfer &lt;file|directory&gt;\n  ... | transfer &lt;file_name&gt;&quot;&gt;&amp;2;return 1;fi;if tty -s;then file=&quot;$1&quot;;file_name=$(basename &quot;$file&quot;);if [ ! -e &quot;$file&quot; ];then echo &quot;$file: No such file or directory&quot;&gt;&amp;2;return 1;fi;if [ -d &quot;$file&quot; ];then file_name=&quot;$file_name.zip&quot; ,;(cd &quot;$file&quot;&amp;&amp;zip -r -q - .)|curl --progress-bar --upload-file &quot;-&quot; &quot;{{.WebAddress}}$file_name&quot;|tee /dev/null,;else cat &quot;$file&quot;|curl --progress-bar --upload-file &quot;-&quot; &quot;{{.WebAddress}}$file_name&quot;|tee /dev/null;fi;else file_name=$1;curl --progress-bar --upload-file &quot;-&quot; &quot;{{.WebAddress}}$file_name&quot;|tee /dev/null;fi;}
 
-                        <span class="code-title"># Now you can use transfer function</span>
+                        <span class="code-title"># 现在你可以使用自定义的终端命令</span>
                         $ transfer hello.txt
                     </code>
                 </div>
@@ -164,12 +164,12 @@ include "includes/navigation.html"
         </div>
 
 
-        <a class="btn-cta" data-target="#coll" data-toggle="collapse">More examples</a>
+        <a class="btn-cta" data-target="#coll" data-toggle="collapse">更多案例</a>
 
         <div class="collapse " id="coll">
             <div class="row">
                 <div class="col-md-6 ">
-                    <h3>Upload multiple files at once</h3>
+                    <h3>批量上传文件</h3>
                     <div class="terminal-top">
                     </div>
                     <div class="terminal">
@@ -185,14 +185,14 @@ include "includes/navigation.html"
 
                 </div>
                 <div class="col-md-6 ">
-                    <h3>Encrypt your files with gpg before the transfer</h3>
+                    <h3>上传前用gpg加密文件</h3>
                     <div class="terminal-top">
                     </div>
                     <div class="terminal">
-                        <code class="code-wrapper"><span class="code-title"># Encrypt files with password using gpg</span>
+                        <code class="code-wrapper"><span class="code-title"># gpg使用密码加密文件</span>
                             $ cat /tmp/hello.txt|gpg -ac -o-|curl -X PUT --upload-file "-" {{.WebAddress}}test.txt
 
-                            <span class="code-title"># Download and decrypt</span>
+                            <span class="code-title"># 下载并解密</span>
                             $ curl {{.WebAddress}}1lDau/test.txt|gpg -o- > /tmp/hello.txt
                         </code>
                     </div>
@@ -201,7 +201,7 @@ include "includes/navigation.html"
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <h3>Scan for malware</h3>
+                    <h3>扫描恶意软</h3>
                     <div class="terminal-top">
                     </div>
                     <div class="terminal">
@@ -215,7 +215,7 @@ include "includes/navigation.html"
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <h3>Backup mysql database, encrypt and transfer</h3>
+                    <h3>备份mysql数据库，加密并传输</h3>
                     <div class="terminal-top">
                     </div>
                     <div class="terminal">
@@ -226,17 +226,17 @@ include "includes/navigation.html"
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <h3>Send email with transfer link (uses shell function)</h3>
+                    <h3>发送链接到电子邮件（使用shell函数）</h3>
                     <div class="terminal-top">
                     </div>
                     <div class="terminal">
-                        <code class="code-wrapper"><span class="code-title"># Transfer and send email with link (uses shell function)</span>
+                        <code class="code-wrapper"><span class="code-title"># 上传和发送带有链接的电子邮件 (使用shell函数)</span>
                             $ transfer /tmp/hello.txt | mail -s "Hello World" user@yourmaildomain.com
                         </code>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <h3>Using <a href="https://keybase.io/">Keybase.io</a></h3>
+                    <h3>使用 <a href="https://keybase.io/">Keybase.io</a></h3>
                     <div class="terminal-top">
                     </div>
                     <div class="terminal">
@@ -252,7 +252,7 @@ include "includes/navigation.html"
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <h3>wget uploads also supported</h3>
+                    <h3>支持wget上传</h3>
                     <div class="terminal-top">
                     </div>
                     <div class="terminal">
@@ -262,7 +262,7 @@ include "includes/navigation.html"
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <h3>Transfer pound logs</h3>
+                    <h3>上传日志</h3>
                     <div class="terminal-top">
                     </div>
                     <div class="terminal">
@@ -275,7 +275,7 @@ include "includes/navigation.html"
             <div class="row">
 
                 <div class="col-md-6">
-                    <h3>Upload a file using Powershell</h3>
+                    <h3>使用powershell上传文件</h3>
                     <div class="terminal-top">
                     </div>
                     <div class="terminal">
@@ -285,7 +285,7 @@ include "includes/navigation.html"
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <h3>Upload a file using HTTPie</h3>
+                    <h3>使用HTTPie上传文件</h3>
                     <div class="terminal-top">
                     </div>
                     <div class="terminal">
@@ -298,25 +298,25 @@ include "includes/navigation.html"
             
             <div class="row">
                 <div class="col-md-6">
-                    <h3>Upload a file using Unofficially client in Python</h3>
+                    <h3>在Python中使用非官方客户端上传文件</h3>
                     <div class="terminal-top">
                     </div>
                     <div class="terminal">
                         <code class="code-wrapper">
                             <span class="code-title"># transfersh-cli (https://github.com/tanrax/transfersh-cli)</span>
                             $ transfersh photos.zip
-                            <span class="code-title"># Uploading file</span>
-                            <span class="code-title"># Download from here: {{.WebAddress}}xxxxxx/photos.zip</span>
-                            <span class="code-title"># It has also been copied to the clipboard!</span>
+                            <span class="code-title"># 上传文件</span>
+                            <span class="code-title"># 下载链接: {{.WebAddress}}xxxxxx/photos.zip</span>
+                            <span class="code-title"># 同时下载链接被复制到剪贴板!</span>
                         </code>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <h3>Encrypt your files with openssl before the transfer</h3>
+                    <h3>上传前使用openssl加密您的文件</h3>
                     <div class="terminal-top">
                     </div>
                     <div class="terminal">
-                        <code class="code-wrapper"><span class="code-title"># Encrypt files with password using openssl</span>
+                        <code class="code-wrapper"><span class="code-title"># 利用openssl使用密码加密文件</span>
                             $ cat /tmp/hello.txt|openssl aes-256-cbc -pbkdf2 -e|curl -X PUT --upload-file "-" {{.WebAddress}}test.txt
 
                             <span class="code-title"># Download and decrypt</span>
@@ -328,11 +328,11 @@ include "includes/navigation.html"
             
             <div class="row">
                 <div class="col-md-6">
-                    <h3>Upload a file or directory in Windows</h3>
+                    <h3>在Windows中上传文件或目录</h3>
                     <div class="terminal-top">
                     </div>
                     <div class="terminal">
-                        <code class="code-wrapper"><span class="code-title">#Save this as transfer.cmd in Windows 10 (which has curl.exe)</span>
+                        <code class="code-wrapper"><span class="code-title">#在Windows 10（具有curl.exe）中将其另存为transfer.cmd</span>
 @echo off
 setlocal EnableDelayedExpansion EnableExtensions
 goto main
@@ -370,11 +370,11 @@ goto main
                     </div>
                 </div>               
                 <div class="col-md-6">
-                    <h3>Send us your awesome example</h3>
+                    <h3>向我们展示你的案例</h3>
                     <div class="terminal-top">
                     </div>
                     <div class="terminal">
-                        <code class="code-wrapper"><span class="code-title"># Your awesome sample will be put here</span>
+                        <code class="code-wrapper"><span class="code-title">#  你的案例将展示在这里</span>
                         </code>
                     </div>
                 </div>
@@ -385,7 +385,7 @@ goto main
 
 <section id="share">
     <div class="wrapper">
-        <h2 class="page-title">Follow on GitHub</h2>
+        <h2 class="page-title">关注GitHub</h2>
         <br>
         <br>
 
