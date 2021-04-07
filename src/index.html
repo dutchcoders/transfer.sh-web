@@ -1,501 +1,288 @@
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js">
-<!--<![endif]-->
-
-include "includes/head.html"
-
-
-<body>
-
-<script>
-    var gaKey = "{{.GAKey}}";
-    if (gaKey != "") {
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                    m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-        ga('create', gaKey, 'transfer.sh');
-        ga('send', 'pageview');
-    }
-</script>
-
-include "includes/navigation.html"
-
-<section id="home">
-    <div class="wrapper">
-        <h2 class="page-title">
-            Easy file sharing from the command line</h2>
-        <div class="row animated fadeInDown">
-            <div id="from-terminal" class="box col-md-8 col-md-offset-2 col-xs-12">
-                <div class="terminal-top">
-
-                </div>
-                <div id="terminal" class="terminal">
-                    <code class="code-wrapper"><span class="code-title"># Upload using cURL</span>
-                        $ curl --upload-file ./hello.txt {{.WebAddress}}hello.txt {{.WebAddress}}66nb8/hello.txt
-
-                        <span class="code-title"># Using the shell function</span>
-                        $ transfer hello.txt
-                        ##################################################### 100.0% {{.WebAddress}}eibhM/hello.txt
-                    </code>
-                </div>
-                <div id="web">
-                    <code class="code-wrapper">
-                        <span class="code-title"># Upload from web</span>
-                        Drag your files here, or <a class="browse" href="#"> click to browse.</a>
-                    </code>
-                    <input type="file" multiple="multiple" style='display: none;' />
-                    <ul class='queue'>
-                        <li>
-                        </li>
-                    </ul>
-                    <div class='all-files'>
-                        <br>
-                        <div>
-                            <span class="code-title"># Download all your files</span>
-                            <br/>
-                            <br/>
-                            <a class="download-zip btn-cta" href="#">zip</a> <a class="download-tar btn-cta" href="#">tar.gz</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <a href="#features" class="btn-cta btn-home">learn more</i> </a>
-            </div>
-        </div>
-</section>
-
-
-
-<section id="features">
-    <div class="wrapper container">
-        <div class="row  animated fadeInDown ">
-            <div class="col-md-3 col-xs-6">
-                <i class="icon-terminal"></i>
-                <h3>Made for use with shell</h3>
-            </div>
-            <div class="col-md-3 col-xs-6">
-                <i class="icon-link"></i>
-                <h3>Share files with a URL</h3>
-            </div>
-            <div class="col-md-3 col-xs-6">
-                <i class="icon-database"></i>
-                <h3>Upload up to 10 GB</h3>
-            </div>
-            <div class="col-md-3 col-xs-6">
-                <i class="icon-clock"></i>
-                <h3>Files stored for 14 days</h3>
-            </div>
-        </div>
-        <div class="row  animated fadeInDown">
-            <div class="col-md-offset-3 col-md-3 col-xs-6">
-                <i class="icon-tag"></i>
-                <h3>For free</h3>
-            </div>
-            <div class="col-md-3 col-xs-6">
-                <i class="icon-lock"></i>
-                <h3>Encrypt your files</h3>
-            </div>
-            <div class="col-md-3 col-xs-6">
-                <i class="icon-lock"></i>
-                <h3>Maximize amount of downloads</h3>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="share">
-    <div class="wrapper">
-        <h2 class="page-title">Preview your files in the browser!</h2>
-    </div>
-
-</section>
-
-<section id="samples">
-    <div class="wrapper">
-        <h2 class="page-title">
-            Sample use cases
-        </h2>
-        <div class="row">
-            <div class="col-md-6 ">
-                <h3>How to upload</h3>
-                <div class="terminal-top">
-
-                </div>
-                <div class="terminal">
-                    <code class="code-wrapper"><span class="code-title"># Uploading is easy using curl</span>
-                        $ curl --upload-file ./hello.txt {{.WebAddress}}hello.txt
-                    {{.WebAddress}}66nb8/hello.txt
-
-                        $ curl -H "Max-Downloads: 1" -H "Max-Days: 5" --upload-file ./hello.txt {{.WebAddress}}hello.txt
-                    {{.WebAddress}}66nb8/hello.txt
-
-                        <span class="code-title"># Download the file</span>
-                        $ curl {{.WebAddress}}66nb8/hello.txt -o hello.txt
-                    </code>
-                </div>
-            </div>
-            <div class="col-md-6 ">
-                <h3>Add shell function to .bashrc or .zshrc</a></h3>
-                <div class="terminal-top">
-                </div>
-                <div class="terminal">
-                    <code class="code-wrapper"><span class="code-title"># Add this to .bashrc or .zshrc or its equivalent</span>
-                        transfer(){ if [ $# -eq 0 ];then echo &quot;No arguments specified.\nUsage:\n  transfer &lt;file|directory&gt;\n  ... | transfer &lt;file_name&gt;&quot;&gt;&amp;2;return 1;fi;if tty -s;then file=&quot;$1&quot;;file_name=$(basename &quot;$file&quot;);if [ ! -e &quot;$file&quot; ];then echo &quot;$file: No such file or directory&quot;&gt;&amp;2;return 1;fi;if [ -d &quot;$file&quot; ];then file_name=&quot;$file_name.zip&quot; ,;(cd &quot;$file&quot;&amp;&amp;zip -r -q - .)|curl --progress-bar --upload-file &quot;-&quot; &quot;{{.WebAddress}}$file_name&quot;|tee /dev/null,;else cat &quot;$file&quot;|curl --progress-bar --upload-file &quot;-&quot; &quot;{{.WebAddress}}$file_name&quot;|tee /dev/null;fi;else file_name=$1;curl --progress-bar --upload-file &quot;-&quot; &quot;{{.WebAddress}}$file_name&quot;|tee /dev/null;fi;}
-
-                        <span class="code-title"># Now you can use transfer function</span>
-                        $ transfer hello.txt
-                    </code>
-                </div>
-            </div>
-        </div>
-
-
-        <a class="btn-cta" data-target="#coll" data-toggle="collapse">More examples</a>
-
-        <div class="collapse " id="coll">
-            <div class="row">
-                <div class="col-md-6 ">
-                    <h3>Upload multiple files at once</h3>
-                    <div class="terminal-top">
-                    </div>
-                    <div class="terminal">
-                        <code class="code-wrapper">
-                            $ curl -i -F filedata=@/tmp/hello.txt -F filedata=@/tmp/hello2.txt {{.WebAddress}}
-
-                            <span class="code-title"># Combining downloads as zip or tar archive</span>
-                            $ curl {{.WebAddress}}(15HKz/hello.txt,15HKz/hello.txt).tar.gz
-                            $ curl {{.WebAddress}}(15HKz/hello.txt,15HKz/hello.txt).zip
-                        </code>
-                    </div>
-
-
-                </div>
-                <div class="col-md-6 ">
-                    <h3>Encrypt your files with gpg before the transfer</h3>
-                    <div class="terminal-top">
-                    </div>
-                    <div class="terminal">
-                        <code class="code-wrapper"><span class="code-title"># Encrypt files with password using gpg</span>
-                            $ cat /tmp/hello.txt|gpg -ac -o-|curl -X PUT --upload-file "-" {{.WebAddress}}test.txt
-
-                            <span class="code-title"># Download and decrypt</span>
-                            $ curl {{.WebAddress}}1lDau/test.txt|gpg -o- > /tmp/hello.txt
-                        </code>
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>Scan for malware</h3>
-                    <div class="terminal-top">
-                    </div>
-                    <div class="terminal">
-                        <code class="code-wrapper"><span class="code-title"># Scan for malware or viruses using Clamav</span>
-                            $ wget http://www.eicar.org/download/eicar.com
-                            $ curl -X PUT --upload-file ./eicar.com {{.WebAddress}}eicar.com/scan
-
-                            <span class="code-title"># Upload malware to VirusTotal, get a permalink in return</span>
-                            $ curl -X PUT --upload-file nhgbhhj {{.WebAddress}}test.txt/virustotal
-                        </code>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <h3>Backup mysql database, encrypt and transfer</h3>
-                    <div class="terminal-top">
-                    </div>
-                    <div class="terminal">
-                        <code class="code-wrapper"><span class="code-title"># Backup, encrypt and transfer</span>
-                            $ mysqldump --all-databases|gzip|gpg -ac -o-|curl -X PUT --upload-file "-" {{.WebAddress}}test.txt</code>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>Send email with transfer link (uses shell function)</h3>
-                    <div class="terminal-top">
-                    </div>
-                    <div class="terminal">
-                        <code class="code-wrapper"><span class="code-title"># Transfer and send email with link (uses shell function)</span>
-                            $ transfer /tmp/hello.txt | mail -s "Hello World" user@yourmaildomain.com
-                        </code>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <h3>Using <a href="https://keybase.io/">Keybase.io</a></h3>
-                    <div class="terminal-top">
-                    </div>
-                    <div class="terminal">
-                        <code class="code-wrapper"><span class="code-title"># Import keys from keybase</span>
-                            $ keybase track [them]
-                            <span class="code-title"># Encrypt for recipient(s)</span>
-                            $ cat somebackupfile.tar.gz | keybase encrypt [them] | curl --upload-file '-' {{.WebAddress}}test.txt
-                            <span class="code-title"># Decrypt</span>
-                            $ curl {{.WebAddress}}sqUFi/test.md |keybase decrypt
-                        </code>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>wget uploads also supported</h3>
-                    <div class="terminal-top">
-                    </div>
-                    <div class="terminal">
-                        <code class="code-wrapper"><span class="code-title"># wget</span>
-                            $ wget --method PUT --body-file=/tmp/file.tar {{.WebAddress}}file.tar -O - -nv
-                        </code>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <h3>Transfer pound logs</h3>
-                    <div class="terminal-top">
-                    </div>
-                    <div class="terminal">
-                        <code class="code-wrapper"><span class="code-title"># grep syslog for pound and transfer</span>
-                            $ cat /var/log/syslog|grep pound|curl --upload-file - {{.WebAddress}}pound.log
-                        </code>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-
-                <div class="col-md-6">
-                    <h3>Upload a file using Powershell</h3>
-                    <div class="terminal-top">
-                    </div>
-                    <div class="terminal">
-                        <code class="code-wrapper"><span class="code-title"># Upload using Powershell</span>
-                            PS H:\&gt; invoke-webrequest -method put -infile .\file.txt {{.WebAddress}}file.txt
-                        </code>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <h3>Upload a file using HTTPie</h3>
-                    <div class="terminal-top">
-                    </div>
-                    <div class="terminal">
-                        <code class="code-wrapper"><span class="code-title"># HTTPie</span>
-                            $ http {{.WebAddress}} -vv &lt; /tmp/test.log
-                        </code>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>Upload a file using Unofficially client in Python</h3>
-                    <div class="terminal-top">
-                    </div>
-                    <div class="terminal">
-                        <code class="code-wrapper">
-                            <span class="code-title"># transfersh-cli (https://github.com/tanrax/transfersh-cli)</span>
-                            $ transfersh photos.zip
-                            <span class="code-title"># Uploading file</span>
-                            <span class="code-title"># Download from here: {{.WebAddress}}xxxxxx/photos.zip</span>
-                            <span class="code-title"># It has also been copied to the clipboard!</span>
-                        </code>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <h3>Encrypt your files with openssl before the transfer</h3>
-                    <div class="terminal-top">
-                    </div>
-                    <div class="terminal">
-                        <code class="code-wrapper"><span class="code-title"># Encrypt files with password using openssl</span>
-                            $ cat /tmp/hello.txt|openssl aes-256-cbc -pbkdf2 -e|curl -X PUT --upload-file "-" {{.WebAddress}}test.txt
-
-                            <span class="code-title"># Download and decrypt</span>
-                            $ curl {{.WebAddress}}1lDau/test.txt|openssl aes-256-cbc -pbkdf2 -d > /tmp/hello.txt
-                        </code>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>Upload a file or directory in Windows</h3>
-                    <div class="terminal-top">
-                    </div>
-                    <div class="terminal">
-                        <code class="code-wrapper"><span class="code-title">#Save this as transfer.cmd in Windows 10 (which has curl.exe)</span>
-@echo off
-setlocal EnableDelayedExpansion EnableExtensions
-goto main
-:usage
-  echo No arguments specified. &gt;&amp;2
-  echo Usage: &gt;&amp;2
-  echo   transfer ^&lt;file^|directory^&gt; &gt;&amp;2        
-  echo   ... ^| transfer ^&lt;file_name^&gt; &gt;&amp;2       
-  exit /b 1
-:main
-  if "%~1" == "" goto usage
-  timeout.exe /t 0 &gt;nul 2&gt;nul || goto not_tty
-  set "file=%~1"
-  for %%A in ("%file%") do set "file_name=%%~nxA"
-  if exist "%file_name%" goto file_exists
-    echo %file%: No such file or directory &gt;&amp;2
-    exit /b 1
-:file_exists
-  if not exist "%file%\" goto not_a_directory
-  set "file_name=%file_name%.zip"
-  pushd "%file%" || exit /b 1
-  set "full_name=%temp%\%file_name%"
-  powershell.exe -Command "Get-ChildItem -Path . -Recurse | Compress-Archive -DestinationPath ""%full_name%"""
-  curl.exe --progress-bar --upload-file "%full_name%" "{{.WebAddress}}%file_name%"
-  popd
-  goto :eof
-:not_a_directory
-  curl.exe --progress-bar --upload-file "%file%" "{{.WebAddress}}%file_name%"
-  goto :eof
-:not_tty
-  set "file_name=%~1"
-  curl.exe --progress-bar --upload-file - "{{.WebAddress}}%file_name%"
-  goto :eof
-                        </code>
-                    </div>
-                </div>               
-                <div class="col-md-6">
-                    <h3>Send us your awesome example</h3>
-                    <div class="terminal-top">
-                    </div>
-                    <div class="terminal">
-                        <code class="code-wrapper"><span class="code-title"># Your awesome sample will be put here</span>
-                        </code>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="share">
-    <div class="wrapper">
-        <h2 class="page-title">Follow on GitHub</h2>
-        <br>
-        <br>
-
-        <iframe src="https://ghbtns.com/github-btn.html?user=dutchcoders&repo=transfer.sh&type=follow&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="250" height="50"></iframe>
-        <iframe src="https://ghbtns.com/github-btn.html?user=dutchcoders&repo=transfer.sh&type=watch&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="200" height="50"></iframe>
-    </div>
-</section>
-<section id="reviews">
-    <div class="wrapper">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 col-xs-12">
-                <blockquote class="twitter-tweet tweet-xl" lang="en">
-                    <a href="https://twitter.com/FloifyDave/status/517383101425516544">
-                        <img class="twitter-profile" src="images/reviews/dave.jpg" alt="">
-                    </a>
-                    <p><a href="https://twitter.com/dutchcoders">@dutchcoders</a> Thanks for transfer.sh. Just used it for a production purpose for a customer. So great, so easy, so https. :)</p>
-                    <a href="https://twitter.com/FloifyDave/status/517383101425516544">
-                        &mdash; Dave Sims (@FloifyDave)</a>
-                </blockquote>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-xs-12">
-                <blockquote class="twitter-tweet" lang="en">
-                    <a href="https://twitter.com/kareemk/status/517029789191118849">
-                        <img class="twitter-profile" src="images/reviews/kareem.jpg" alt="">
-                    </a>
-                    <p><a href="https://twitter.com/dutchcoders">@dutchcoders</a> love transfer.sh! any change we can *pay* for a self-hosted version?</p><a href="https://twitter.com/kareemk/status/517029789191118849">&mdash; Kareem Kouddous (@kareemk) </a>
-                </blockquote>
-            </div>
-            <div class="col-md-6 col-xs-12">
-                <blockquote class="twitter-tweet" lang="en">
-                    <a href="https://twitter.com/drakpz/status/517008058841829376">
-                        <img class="twitter-profile" src="images/reviews/pg.jpeg" alt="">
-                    </a>
-                    <p><a href="http://t.co/JomAmqWYEB">http://t.co/JomAmqWYEB</a> by <a href="https://twitter.com/dutchcoders">@dutchcoders</a> is pure awesomeness! any chance of source on github? :-)</p><a href="https://twitter.com/drakpz/status/517008058841829376">&mdash; PJ Spagnolatti (@drakpz)</a>
-                </blockquote>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-xs-12">
-                <blockquote class="twitter-tweet" lang="en">
-                    <a href="https://twitter.com/jacoblindgren11/status/516975006501203968">
-                        <img class="twitter-profile" src="images/reviews/jacob.jpg" alt="">
-                    </a>
-                    <p>Love transfer.sh! Will be using it from now on! Thanks for the amazing service we can use from the CLI <a href="https://twitter.com/dutchcoders">@dutchcoders</a>
-                    </p><a href="https://twitter.com/jacoblindgren11/status/516975006501203968">&mdash; Jacob Lindgren (@jacoblindgren11) </a>
-                </blockquote>
-            </div>
-            <div class="col-md-6 col-xs-12">
-                <blockquote class="twitter-tweet" lang="en">
-                    <a href="https://twitter.com/arvestad/status/519507976491499521">
-                        <img class="twitter-profile" src="images/reviews/lars.jpg" alt="">
-                    </a>
-                    <p>transfer.sh is my latest fav service! Try simple command-line and web file sharing! <a href="https://t.co/FSrsb1JKJd">https://t.co/FSrsb1JKJd</a>&#10;Thanks <a href="https://twitter.com/dutchcoders">@dutchcoders</a> !</p> <a href="https://twitter.com/arvestad/status/519507976491499521">&mdash; Lars Arvestad (@arvestad)</a>
-                </blockquote>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-
-<section id="share">
-    <div class="wrapper">
-        <h2 class="page-title">Share the love</h2>
-        <ul class="share-buttons">
-            <li>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Ftransfer.sh&t=" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&t=' + encodeURIComponent(document.URL)); return false;"> <i class="icon-facebook"></i>
-                </a>
-            </li>
-            <li>
-                <a href="https://twitter.com/intent/tweet?source=http%3A%2F%2Ftransfer.sh&text=:%20http%3A%2F%2Ftransfer.sh" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;"> <i class="icon-twitter"></i>
-            </li>
-            <li>
-                <a href="https://plus.google.com/share?url=http%3A%2F%2Ftransfer.sh" target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(document.URL)); return false;"> <i class="icon-gplus"></i>
-                </a>
-            </li>
-            <li>
-                <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Ftransfer.sh&title=&summary=&source=http%3A%2F%2Ftransfer.sh" target="_blank" title="Share on LinkedIn" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(document.URL) + '&title=' +  encodeURIComponent(document.title)); return false;"> <i class="icon-linkedin"></i>
-                </a>
-            </li>
-        </ul>
-    </div>
-</section>
-
-
-<section id="contact">
-    <div class="wrapper">
-        <i class="icon-mail"></i>
-        <h2 class="page-title">
-            Any questions?
-        </h2>
-        <a href="#" data-uv-trigger class="btn-cta">contact us</a>
-    </div>
-</section>
-<section id="tor">
-    <div class="wrapper">
-        <a href="https://www.torproject.org"><img src="images/tor.svg" alt="">
-        </a>
-        <br/>
-        <a href="http://jxm5d6emw5rknovg.onion/">http://jxm5d6emw5rknovg.onion/</a>
-    </div>
-</section>
-
-
-include "includes/footer.html"
-include "includes/js.html"
-
-
-</body>
-
+<!doctype html><!--[if lt IE 7]>	  <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]--><!--[if IE 7]>		 <html class="no-js lt-ie9 lt-ie8"> <![endif]--><!--[if IE 8]>		 <html class="no-js lt-ie9"> <![endif]--><!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]--> 
+	<head></head> 
+	<body>
+		 include "includes/head.html" 
+		<script>
+			var gaKey = "{{.GAKey}}";
+			if (gaKey != ""){
+				(function (i, s, o, g, r, a, m){
+					i['GoogleAnalyticsObject'] = r;
+					i[r] = i[r] || function (){
+					(i[r].q = i[r].q || []).push(arguments)}
+					, i[r].l = 1 * new Date();
+					a = s.createElement(o),				
+						m = s.getElementsByTagName(o)[0];
+					a.async = 1;
+					a.src = g;
+				m.parentNode.insertBefore(a, m)}
+				)(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+				ga('create', gaKey, 'transfer.sh');
+				ga('send', 'pageview');
+			}
+		</script> 
+		include "includes/navigation.html" 
+		<section id="home"> 
+			<div class="wrapper"> 
+				<h2 class="page-title"> 通过命令行轻松共享文件</h2> 
+				<div class="row animated fadeInDown"> 
+					<div id="from-terminal" class="box col-md-8 col-md-offset-2 col-xs-12"> 
+						<div class="terminal-top"> 
+						</div> 
+						<div id="terminal" class="terminal"> <code class="code-wrapper"><span class="code-title"># 使用cURL上传方法</span> $ curl --upload-file ./hello.txt {{.WebAddress}}hello.txt {{.WebAddress}}66nb8/hello.txt <span class="code-title"># 终端命令方法</span> $ transfer hello.txt ##################################################### 100.0% {{.WebAddress}}eibhM/hello.txt </code> 
+						</div> 
+						<div id="web"> <code class="code-wrapper"> <span class="code-title"># 网页上传</span> 将文件拖放到此处, 或者 <a class="browse" href="#"> 点击此处上传.</a> </code> 
+							<input type="file" multiple style="display: none;"> 
+							<ul class="queue"> 
+								<li> </li> 
+							</ul> 
+							<div class="all-files"> 
+								<br> 
+								<div> <span class="code-title"># 下载所有文件</span> 
+									<br> 
+									<br> <a class="download-zip btn-cta" href="#">zip</a> <a class="download-tar btn-cta" href="#">tar.gz</a> 
+								</div> 
+							</div> 
+						</div> 
+					</div> 
+					<div> <a href="#features" class="btn-cta btn-home">learn more </a> 
+					</div> 
+				</div> 
+			</div> 
+		</section> 
+		<section id="features"> 
+			<div class="wrapper container"> 
+				<div class="row  animated fadeInDown "> 
+					<div class="col-md-3 col-xs-6"> <i class="icon-terminal"></i> 
+						<h3>专为终端设计</h3> 
+					</div> 
+					<div class="col-md-3 col-xs-6"> <i class="icon-link"></i> 
+						<h3>URL链接分享</h3> 
+					</div> 
+					<div class="col-md-3 col-xs-6"> <i class="icon-database"></i> 
+						<h3>最大文件 10 GB</h3> 
+					</div> 
+					<div class="col-md-3 col-xs-6"> <i class="icon-clock"></i> 
+						<h3>文件保留14天</h3> 
+					</div> 
+				</div> 
+				<div class="row  animated fadeInDown"> 
+					<div class="col-md-offset-3 col-md-3 col-xs-6"> <i class="icon-tag"></i> 
+						<h3>免费</h3> 
+					</div> 
+					<div class="col-md-3 col-xs-6"> <i class="icon-lock"></i> 
+						<h3>文件加密</h3> 
+					</div> 
+					<div class="col-md-3 col-xs-6"> <i class="icon-lock"></i> 
+						<h3>满速下载</h3> 
+					</div> 
+				</div> 
+			</div> 
+		</section> 
+		<section id="share"> 
+			<div class="wrapper"> 
+				<h2 class="page-title">在浏览器中预览文件</h2> 
+			</div> 
+		</section> 
+		<section id="samples"> 
+			<div class="wrapper"> 
+				<h2 class="page-title"> 使用案例 </h2> 
+				<div class="row"> 
+					<div class="col-md-6 "> 
+						<h3>怎么上传文件</h3> 
+						<div class="terminal-top"> 
+						</div> 
+						<div class="terminal"> <code class="code-wrapper"><span class="code-title"># 使用curl轻松上传</span> $ curl --upload-file ./hello.txt {{.WebAddress}}hello.txt {{.WebAddress}}66nb8/hello.txt $ curl -H "Max-Downloads: 1" -H "Max-Days: 5" --upload-file ./hello.txt {{.WebAddress}}hello.txt {{.WebAddress}}66nb8/hello.txt <span class="code-title"># 下载文件</span> $ curl {{.WebAddress}}66nb8/hello.txt -o hello.txt </code> 
+						</div> 
+					</div> 
+					<div class="col-md-6 "> 
+						<h3>使用.bashrc or .zshrc方法自定义终端命令</h3> 
+						<div class="terminal-top"> 
+						</div> 
+						<div class="terminal"> 
+						<code class="code-wrapper"><span class="code-title"># 将代码添加到.bashrc 或者 .zshrc </span> 
+					        	transfer(){ if [ $# -eq 0 ];then echo "No arguments specified.\nUsage:\n transfer &lt;file|directory&gt;\n ... | transfer &lt;file_name&gt;"&gt;&amp;2;return 1;fi;if tty -s;then file="$1";file_name=$(basename "$file");if [ ! -e "$file" ];then echo "$file: No such file or directory"&gt;&amp;2;return 1;fi;if [ -d "$file" ];then file_name="$file_name.zip" ,;(cd "$file"&amp;&amp;zip -r -q - .)|curl --progress-bar --upload-file "-" "{{.WebAddress}}$file_name"|tee /dev/null,;else cat "$file"|curl --progress-bar --upload-file "-" "{{.WebAddress}}$file_name"|tee /dev/null;fi;else file_name=$1;curl --progress-bar --upload-file "-" "{{.WebAddress}}$file_name"|tee /dev/null;fi;} <span class="code-title"># 现在你可以使用自定义的终端命令</span> $ transfer hello.txt </code> 
+						</div> 
+					</div> 
+				</div> <a class="btn-cta" data-target="#coll" data-toggle="collapse">更多案例</a> 
+				<div class="collapse " id="coll"> 
+					<div class="row"> 
+						<div class="col-md-6 "> 
+							<h3>批量上传文件</h3> 
+							<div class="terminal-top"> 
+							</div> 
+							<div class="terminal"> <code class="code-wrapper"> $ curl -i -F filedata=@/tmp/hello.txt -F filedata=@/tmp/hello2.txt {{.WebAddress}} <span class="code-title"># 将下载内容合并为zip或tar存档</span> $ curl {{.WebAddress}}(15HKz/hello.txt,15HKz/hello.txt).tar.gz $ curl {{.WebAddress}}(15HKz/hello.txt,15HKz/hello.txt).zip </code> 
+							</div> 
+						</div> 
+						<div class="col-md-6 "> 
+							<h3>上传前用gpg加密文件</h3> 
+							<div class="terminal-top"> 
+							</div> 
+							<div class="terminal"> <code class="code-wrapper"><span class="code-title"># gpg使用密码加密文件</span> $ cat /tmp/hello.txt|gpg -ac -o-|curl -X PUT --upload-file "-" {{.WebAddress}}test.txt <span class="code-title"># 下载并解密</span> $ curl {{.WebAddress}}1lDau/test.txt|gpg -o- > /tmp/hello.txt </code> 
+							</div> 
+						</div> 
+					</div> 
+					<div class="row"> 
+						<div class="col-md-6"> 
+							<h3>扫描恶意软件</h3> 
+							<div class="terminal-top"> 
+							</div> 
+							<div class="terminal"> <code class="code-wrapper"><span class="code-title"># 使用Clamav扫描恶意软件或病毒</span> $ wget http://www.eicar.org/download/eicar.com $ curl -X PUT --upload-file ./eicar.com {{.WebAddress}}eicar.com/scan <span class="code-title"># 将恶意软件上传到VirusTotal，获得永久链接作为反馈</span> $ curl -X PUT --upload-file nhgbhhj {{.WebAddress}}test.txt/virustotal </code> 
+							</div> 
+						</div> 
+						<div class="col-md-6"> 
+							<h3>备份mysql数据库，加密并传输</h3> 
+							<div class="terminal-top"> 
+							</div> 
+							<div class="terminal"> <code class="code-wrapper"><span class="code-title"># 备份，加密和传输</span> $ mysqldump --all-databases|gzip|gpg -ac -o-|curl -X PUT --upload-file "-" {{.WebAddress}}test.txt</code> 
+							</div> 
+						</div> 
+					</div> 
+					<div class="row"> 
+						<div class="col-md-6"> 
+							<h3>发送链接到email</h3> 
+							<div class="terminal-top"> 
+							</div> 
+							<div class="terminal"> <code class="code-wrapper"><span class="code-title"># 上传和发送带有链接的电子邮件</span> $ transfer /tmp/hello.txt | mail -s "Hello World" user@yourmaildomain.com </code> 
+							</div> 
+						</div> 
+						<div class="col-md-6"> 
+							<h3>使用 <a href="https://keybase.io/">Keybase.io</a></h3> 
+							<div class="terminal-top"> 
+							</div> 
+							<div class="terminal"> <code class="code-wrapper"><span class="code-title"># 从密钥库导入密钥</span> $ keybase track [them] <span class="code-title"># 加密收件人</span> $ cat somebackupfile.tar.gz | keybase encrypt [them] | curl --upload-file '-' {{.WebAddress}}test.txt <span class="code-title"># 解密</span> $ curl {{.WebAddress}}sqUFi/test.md |keybase decrypt </code> 
+							</div> 
+						</div> 
+					</div> 
+					<div class="row"> 
+						<div class="col-md-6"> 
+							<h3>支持wget上传</h3> 
+							<div class="terminal-top"> 
+							</div> 
+							<div class="terminal"> <code class="code-wrapper"><span class="code-title"># wget</span> $ wget --method PUT --body-file=/tmp/file.tar {{.WebAddress}}file.tar -O - -nv </code> 
+							</div> 
+						</div> 
+						<div class="col-md-6"> 
+							<h3>上传日志</h3> 
+							<div class="terminal-top"> 
+							</div> 
+							<div class="terminal"> <code class="code-wrapper"><span class="code-title"># 上传系统日志</span> $ cat /var/log/syslog|grep pound|curl --upload-file - {{.WebAddress}}pound.log </code> 
+							</div> 
+						</div> 
+					</div> 
+					<div class="row"> 
+						<div class="col-md-6"> 
+							<h3>使用powershell上传文件</h3> 
+							<div class="terminal-top"> 
+							</div> 
+							<div class="terminal"> <code class="code-wrapper"><span class="code-title"># 使用Powershell上传</span> PS H:\&gt; invoke-webrequest -method put -infile .\file.txt {{.WebAddress}}file.txt </code> 
+							</div> 
+						</div> 
+						<div class="col-md-6"> 
+							<h3>使用HTTPie上传文件</h3> 
+							<div class="terminal-top"> 
+							</div> 
+							<div class="terminal"> <code class="code-wrapper"><span class="code-title"># HTTPie</span> $ http {{.WebAddress}} -vv &lt; /tmp/test.log </code> 
+							</div> 
+						</div> 
+					</div> 
+					<div class="row"> 
+						<div class="col-md-6"> 
+							<h3>在Python中使用非官方客户端上传文件</h3> 
+							<div class="terminal-top"> 
+							</div> 
+							<div class="terminal"> <code class="code-wrapper"> <span class="code-title"># transfersh-cli (https://github.com/tanrax/transfersh-cli)</span> $ transfersh photos.zip <span class="code-title"># 上传文件</span> <span class="code-title"># 下载链接: {{.WebAddress}}xxxxxx/photos.zip</span> <span class="code-title"># 同时下载链接被复制到剪贴板！</span> </code> 
+							</div> 
+						</div> 
+						<div class="col-md-6"> 
+							<h3>上传前使用openssl加密您的文件</h3> 
+							<div class="terminal-top"> 
+							</div> 
+							<div class="terminal"> <code class="code-wrapper"><span class="code-title"># 利用openssl使用密码加密文件</span> $ cat /tmp/hello.txt|openssl aes-256-cbc -pbkdf2 -e|curl -X PUT --upload-file "-" {{.WebAddress}}test.txt <span class="code-title"># 下载并解密</span> $ curl {{.WebAddress}}1lDau/test.txt|openssl aes-256-cbc -pbkdf2 -d > /tmp/hello.txt </code> 
+							</div> 
+						</div> 
+					</div> 
+					<div class="row"> 
+						<div class="col-md-6"> 
+							<h3>在Windows中上传文件或目录</h3> 
+							<div class="terminal-top"> 
+							</div> 
+							<div class="terminal"> <code class="code-wrapper"><span class="code-title"># 在Windows 10（具有curl.exe）中将其另存为transfer.cmd</span> @echo off setlocal EnableDelayedExpansion EnableExtensions goto main :usage echo No arguments specified. &gt;&amp;2 echo Usage: &gt;&amp;2 echo transfer ^&lt;file^|directory^&gt; &gt;&amp;2 echo ... ^| transfer ^&lt;file_name^&gt; &gt;&amp;2 exit /b 1 :main if "%~1" == "" goto usage timeout.exe /t 0 &gt;nul 2&gt;nul || goto not_tty set "file=%~1" for %%A in ("%file%") do set "file_name=%%~nxA" if exist "%file_name%" goto file_exists echo %file%: No such file or directory &gt;&amp;2 exit /b 1 :file_exists if not exist "%file%\" goto not_a_directory set "file_name=%file_name%.zip" pushd "%file%" || exit /b 1 set "full_name=%temp%\%file_name%" powershell.exe -Command "Get-ChildItem -Path . -Recurse | Compress-Archive -DestinationPath ""%full_name%""" curl.exe --progress-bar --upload-file "%full_name%" "{{.WebAddress}}%file_name%" popd goto :eof :not_a_directory curl.exe --progress-bar --upload-file "%file%" "{{.WebAddress}}%file_name%" goto :eof :not_tty set "file_name=%~1" curl.exe --progress-bar --upload-file - "{{.WebAddress}}%file_name%" goto :eof </code> 
+							</div> 
+						</div> 
+						<div class="col-md-6"> 
+							<h3>向我们展示你的案例</h3> 
+							<div class="terminal-top"> 
+							</div> 
+							<div class="terminal"> <code class="code-wrapper"><span class="code-title"># 你的案例将展示在这里</span> </code> 
+							</div> 
+						</div> 
+					</div> 
+				</div> 
+			</div> 
+		</section> 
+		<section id="share"> 
+			<div class="wrapper"> 
+				<h2 class="page-title">关注GitHub</h2> 
+				<br> 
+				<br> <iframe src="https://ghbtns.com/github-btn.html?user=dutchcoders&repo=transfer.sh&type=follow&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="250" height="50"></iframe> <iframe src="https://ghbtns.com/github-btn.html?user=dutchcoders&repo=transfer.sh&type=watch&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="200" height="50"></iframe> 
+			</div> 
+		</section> 
+		<section id="reviews"> 
+			<div class="wrapper"> 
+				<div class="row"> 
+					<div class="col-md-8 col-md-offset-2 col-xs-12"> 
+						<blockquote class="twitter-tweet tweet-xl" lang="en"> <a href="https://twitter.com/FloifyDave/status/517383101425516544"> <img class="twitter-profile" src="images/reviews/dave.jpg" alt=""> </a> 
+							<p><a href="https://twitter.com/dutchcoders">@dutchcoders</a> Thanks for transfer.sh. Just used it for a production purpose for a customer. So great, so easy, so https. :)</p> <a href="https://twitter.com/FloifyDave/status/517383101425516544"> — Dave Sims (@FloifyDave)</a> 
+						</blockquote> 
+					</div> 
+				</div> 
+				<div class="row"> 
+					<div class="col-md-6 col-xs-12"> 
+						<blockquote class="twitter-tweet" lang="en"> <a href="https://twitter.com/kareemk/status/517029789191118849"> <img class="twitter-profile" src="images/reviews/kareem.jpg" alt=""> </a> 
+							<p><a href="https://twitter.com/dutchcoders">@dutchcoders</a> love transfer.sh! any change we can *pay* for a self-hosted version?</p><a href="https://twitter.com/kareemk/status/517029789191118849">— Kareem Kouddous (@kareemk) </a> 
+						</blockquote> 
+					</div> 
+					<div class="col-md-6 col-xs-12"> 
+						<blockquote class="twitter-tweet" lang="en"> <a href="https://twitter.com/drakpz/status/517008058841829376"> <img class="twitter-profile" src="images/reviews/pg.jpeg" alt=""> </a> 
+							<p><a href="http://t.co/JomAmqWYEB">http://t.co/JomAmqWYEB</a> by <a href="https://twitter.com/dutchcoders">@dutchcoders</a> is pure awesomeness! any chance of source on github? :-)</p><a href="https://twitter.com/drakpz/status/517008058841829376">— PJ Spagnolatti (@drakpz)</a> 
+						</blockquote> 
+					</div> 
+				</div> 
+				<div class="row"> 
+					<div class="col-md-6 col-xs-12"> 
+						<blockquote class="twitter-tweet" lang="en"> <a href="https://twitter.com/jacoblindgren11/status/516975006501203968"> <img class="twitter-profile" src="images/reviews/jacob.jpg" alt=""> </a> 
+							<p>Love transfer.sh! Will be using it from now on! Thanks for the amazing service we can use from the CLI <a href="https://twitter.com/dutchcoders">@dutchcoders</a> </p><a href="https://twitter.com/jacoblindgren11/status/516975006501203968">— Jacob Lindgren (@jacoblindgren11) </a> 
+						</blockquote> 
+					</div> 
+					<div class="col-md-6 col-xs-12"> 
+						<blockquote class="twitter-tweet" lang="en"> <a href="https://twitter.com/arvestad/status/519507976491499521"> <img class="twitter-profile" src="images/reviews/lars.jpg" alt=""> </a> 
+							<p>transfer.sh is my latest fav service! Try simple command-line and web file sharing! <a href="https://t.co/FSrsb1JKJd">https://t.co/FSrsb1JKJd</a> Thanks <a href="https://twitter.com/dutchcoders">@dutchcoders</a> !</p> <a href="https://twitter.com/arvestad/status/519507976491499521">— Lars Arvestad (@arvestad)</a> 
+						</blockquote> 
+					</div> 
+				</div> 
+			</div> 
+		</section> 
+		<section id="share"> 
+			<div class="wrapper"> 
+				<h2 class="page-title">Share the love</h2> 
+				<ul class="share-buttons"> 
+					<li> <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Ftransfer.sh&t=" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(document.URL) + '&t=' + encodeURIComponent(document.URL)); return false;"> <i class="icon-facebook"></i> </a> </li> 
+					<li> <a href="https://twitter.com/intent/tweet?source=http%3A%2F%2Ftransfer.sh&text=:%20http%3A%2F%2Ftransfer.sh" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;"> <i class="icon-twitter"></i> </a></li><a href="https://twitter.com/intent/tweet?source=http%3A%2F%2Ftransfer.sh&text=:%20http%3A%2F%2Ftransfer.sh" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;"> </a> 
+					<li><a href="https://twitter.com/intent/tweet?source=http%3A%2F%2Ftransfer.sh&text=:%20http%3A%2F%2Ftransfer.sh" target="_blank" title="Tweet" onclick="window.open('https://twitter.com/intent/tweet?text=' + encodeURIComponent(document.title) + ':%20'  + encodeURIComponent(document.URL)); return false;"> </a><a href="https://plus.google.com/share?url=http%3A%2F%2Ftransfer.sh" target="_blank" title="Share on Google+" onclick="window.open('https://plus.google.com/share?url=' + encodeURIComponent(document.URL)); return false;"> <i class="icon-gplus"></i> </a> </li> 
+					<li> <a href="http://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Ftransfer.sh&title=&summary=&source=http%3A%2F%2Ftransfer.sh" target="_blank" title="Share on LinkedIn" onclick="window.open('http://www.linkedin.com/shareArticle?mini=true&url=' + encodeURIComponent(document.URL) + '&title=' +  encodeURIComponent(document.title)); return false;"> <i class="icon-linkedin"></i> </a> </li> 
+				</ul> 
+			</div> 
+		</section> 
+		<section id="contact"> 
+			<div class="wrapper"> <i class="icon-mail"></i> 
+				<h2 class="page-title"> Any questions? </h2> <a href="#" data-uv-trigger class="btn-cta">contact us</a> 
+			</div> 
+		</section> 
+		<section id="tor"> 
+			<div class="wrapper"> <a href="https://www.torproject.org"><img src="images/tor.svg" alt=""> </a> 
+				<br> <a href="http://jxm5d6emw5rknovg.onion/">http://jxm5d6emw5rknovg.onion/</a> 
+			</div> 
+		</section> include "includes/footer.html" include "includes/js.html"  
+	</body>
 </html>
