@@ -9,13 +9,13 @@ Encrypt with gpg & upload:
 $ cat /tmp/hello.txt|gpg -ac -o-|curl -X PUT --upload-file "-" {{.WebAddress}}test.txt
 
 Download & decrypt with gpg:
-$ curl {{.WebAddress}}1lDau/test.txt|gpg -o- > /tmp/hello.txt
+$ curl {{.WebAddress}}{{.SampleToken}}/test.txt|gpg -o- > /tmp/hello.txt
 
 Encrypt with openssl & upload:
 $ cat /tmp/hello.txt|openssl aes-256-cbc -pbkdf2 -e|curl -X PUT --upload-file "-" {{.WebAddress}}test.txt
 
 Download & decrypt with openssl:
-$ curl {{.WebAddress}}1lDau/test.txt|openssl aes-256-cbc -pbkdf2 -d > /tmp/hello.txt
+$ curl {{.WebAddress}}{{.SampleToken}}/test.txt|openssl aes-256-cbc -pbkdf2 -d > /tmp/hello.txt
 
 Grep pound from syslog and transfer
 cat /var/log/syslog|grep pound|curl --upload-file - {{.WebAddress}}pound.log
@@ -28,7 +28,7 @@ $ keybase track [them]
 $ cat somebackupfile.tar.gz | keybase encrypt [them] | curl --upload-file '-' {{.WebAddress}}test.txt
 
 # decrypt
-$ curl {{.WebAddress}}sqUFi/test.md |keybase decrypt
+$ curl {{.WebAddress}}{{.SampleToken}}/test.md |keybase decrypt
 
 Upload to Virustotal:
 $ curl -X PUT --upload-file nhgbhhj {{.WebAddress}}test.txt/virustotal

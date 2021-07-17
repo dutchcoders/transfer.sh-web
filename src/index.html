@@ -43,11 +43,11 @@ include "includes/navigation.html"
                 </div>
                 <div id="terminal" class="terminal">
                     <code class="code-wrapper"><span class="code-title"># Upload using cURL</span>
-                        $ curl --upload-file ./hello.txt {{.WebAddress}}hello.txt {{.WebAddress}}66nb8/hello.txt
+                        $ curl --upload-file ./hello.txt {{.WebAddress}}hello.txt {{.WebAddress}}{{.SampleToken}}/hello.txt
 
                         <span class="code-title"># Using the shell function</span>
                         $ transfer hello.txt
-                        ##################################################### 100.0% {{.WebAddress}}eibhM/hello.txt
+                        ##################################################### 100.0% {{.WebAddress}}{{.SampleToken2}}/hello.txt
                     </code>
                 </div>
                 <div id="web">
@@ -95,10 +95,17 @@ include "includes/navigation.html"
                 <i class="icon-database"></i>
                 <h3>Upload up to 10 GB</h3>
             </div>
+            {{ if .PurgeTime }}
             <div class="col-md-3 col-xs-6">
                 <i class="icon-clock"></i>
-                <h3>Files stored for 14 days</h3>
+                <h3>Files stored for {{ .PurgeTime }}</h3>
             </div>
+            {{ else }}
+            <div class="col-md-3 col-xs-6">
+                <i class="icon-clock"></i>
+                <h3>Files stored forever</h3>
+            </div>
+            {{ end }}
         </div>
         <div class="row  animated fadeInDown">
             <div class="col-md-offset-3 col-md-3 col-xs-6">
@@ -138,13 +145,13 @@ include "includes/navigation.html"
                 <div class="terminal">
                     <code class="code-wrapper"><span class="code-title"># Uploading is easy using curl</span>
                         $ curl --upload-file ./hello.txt {{.WebAddress}}hello.txt
-                    {{.WebAddress}}66nb8/hello.txt
+                    {{.WebAddress}}{{.SampleToken}}/hello.txt
 
                         $ curl -H "Max-Downloads: 1" -H "Max-Days: 5" --upload-file ./hello.txt {{.WebAddress}}hello.txt
-                    {{.WebAddress}}66nb8/hello.txt
+                    {{.WebAddress}}{{.SampleToken}}/hello.txt
 
                         <span class="code-title"># Download the file</span>
-                        $ curl {{.WebAddress}}66nb8/hello.txt -o hello.txt
+                        $ curl {{.WebAddress}}{{.SampleToken}}/hello.txt -o hello.txt
                     </code>
                 </div>
             </div>
@@ -177,8 +184,8 @@ include "includes/navigation.html"
                             $ curl -i -F filedata=@/tmp/hello.txt -F filedata=@/tmp/hello2.txt {{.WebAddress}}
 
                             <span class="code-title"># Combining downloads as zip or tar archive</span>
-                            $ curl {{.WebAddress}}(15HKz/hello.txt,15HKz/hello.txt).tar.gz
-                            $ curl {{.WebAddress}}(15HKz/hello.txt,15HKz/hello.txt).zip
+                            $ curl {{.WebAddress}}({{.SampleToken}}/hello.txt,{{.SampleToken2}}/world.txt).tar.gz
+                            $ curl {{.WebAddress}}({{.SampleToken}}/hello.txt,{{.SampleToken2}}/world.txt).zip
                         </code>
                     </div>
 
@@ -193,7 +200,7 @@ include "includes/navigation.html"
                             $ cat /tmp/hello.txt|gpg -ac -o-|curl -X PUT --upload-file "-" {{.WebAddress}}test.txt
 
                             <span class="code-title"># Download and decrypt</span>
-                            $ curl {{.WebAddress}}1lDau/test.txt|gpg -o- > /tmp/hello.txt
+                            $ curl {{.WebAddress}}{{.SampleToken}}/test.txt|gpg -o- > /tmp/hello.txt
                         </code>
                     </div>
                 </div>
@@ -245,7 +252,7 @@ include "includes/navigation.html"
                             <span class="code-title"># Encrypt for recipient(s)</span>
                             $ cat somebackupfile.tar.gz | keybase encrypt [them] | curl --upload-file '-' {{.WebAddress}}test.txt
                             <span class="code-title"># Decrypt</span>
-                            $ curl {{.WebAddress}}sqUFi/test.md |keybase decrypt
+                            $ curl {{.WebAddress}}{{.SampleToken}}/test.md |keybase decrypt
                         </code>
                     </div>
                 </div>
@@ -306,7 +313,7 @@ include "includes/navigation.html"
                             <span class="code-title"># transfersh-cli (https://github.com/tanrax/transfersh-cli)</span>
                             $ transfersh photos.zip
                             <span class="code-title"># Uploading file</span>
-                            <span class="code-title"># Download from here: {{.WebAddress}}xxxxxx/photos.zip</span>
+                            <span class="code-title"># Download from here: {{.WebAddress}}{{.SampleToken}}/photos.zip</span>
                             <span class="code-title"># It has also been copied to the clipboard!</span>
                         </code>
                     </div>
@@ -320,7 +327,7 @@ include "includes/navigation.html"
                             $ cat /tmp/hello.txt|openssl aes-256-cbc -pbkdf2 -e|curl -X PUT --upload-file "-" {{.WebAddress}}test.txt
 
                             <span class="code-title"># Download and decrypt</span>
-                            $ curl {{.WebAddress}}1lDau/test.txt|openssl aes-256-cbc -pbkdf2 -d > /tmp/hello.txt
+                            $ curl {{.WebAddress}}{{.SampleToken}}/test.txt|openssl aes-256-cbc -pbkdf2 -d > /tmp/hello.txt
                         </code>
                     </div>
                 </div>

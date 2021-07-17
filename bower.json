@@ -13,7 +13,7 @@
     "tests"
   ],
   "dependencies": {
-    "videojs": "~7.10.2",
+    "videojs": "~7.13.3",
     "bootstrap": "~3.0.0",
     "modernizr": "~2.6.2",
     "uri.js": "~1.14.1",

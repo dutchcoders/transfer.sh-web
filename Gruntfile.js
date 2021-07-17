@@ -242,6 +242,12 @@ module.exports = function (grunt) {
             }
         },
         'npm-command': {
+            'videojs-update': {
+                options: {
+                    cmd: 'update',
+                    cwd: '<%= yeoman.app %>/bower_components/videojs/'
+                }
+            },
             'videojs-install': {
                 options: {
                     cmd: 'install',

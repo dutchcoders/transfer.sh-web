@@ -30,6 +30,41 @@ $(document).ready(function() {
         return 'There are still ' + queue.length + ' files being uploaded.';
     });
 
+    function deleteFile(baseURL) {
+        var deleteModal = $('.delete-modal');
+        if (deleteModal.hasClass('show')) {
+            deleteModal.removeClass('show');
+        } else {
+            deleteModal.addClass('show');
+        }
+
+        deleteModal.find('input[placeholder]').each(function () {
+            $(this).attr('size', $(this).attr('placeholder').length);
+        });
+
+        $('#confirm-delete').on('click', function (event) {
+            event.stopPropagation();
+            event.preventDefault();
+            var deletionToken = $('#deletion-token').val();
+            if (deletionToken.length > 0) {
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            deleteModal.find('#web').html('<span style="clear:both">File deleted</span></div>');
+                        } else {
+                            deleteModal.find('#web').append('<span>Error (' + xhr.status + ') during deletion of file</span>');
+                        }
+                    }
+                };
+
+                // start deletion
+                xhr.open('DELETE', baseURL + '/' + deletionToken, true);
+                xhr.send();
+            }
+        });
+    }
+
     function upload(file) {
         $('.browse').addClass('uploading');
 
@@ -44,17 +79,18 @@ $(document).ready(function() {
             var pc = parseInt((e.loaded / e.total * 100));
             $('.upload-progress', $(li)).show();
             $('.upload-progress .bar', $(li)).css('width', pc + '%');
-            $('.upload-progress span  ', $(li)).empty().append(pc + '%');
+            $('.upload-progress span', $(li)).empty().append(pc + '%');
 
         }, false);
 
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4) {
-                /*            $('.upload-progress', $(li)).hide();*/
                 $('#web').addClass('uploading');
-                // progress.className = (xhr.status == 200 ? "success" : "failure");
                 if (xhr.status === 200) {
-                    $(li).html('<a target="_blank" href="' + xhr.responseText + '">' + xhr.responseText + '</a>');
+                    var deletionToken = xhr.getResponseHeader('X-Url-Delete').split('/').pop();
+                    var url = $('<p></p>').text(xhr.responseText).html();
+                    $(li).html('<a target="_blank" href="' + url + '">' + url + '</a><br/><br/>' +
+                        '<span class="code-title"># Delete URL</span><br/>' + deletionToken);
                 } else {
                     $(li).html('<span>Error (' + xhr.status + ') during upload of file ' + file.name + '</span>');
                 }
@@ -116,6 +152,12 @@ $(document).ready(function() {
                 upload(file);
             }
         });
+    });
+
+    $('a#fire-delete').on('click', function(event) {
+        event.stopPropagation();
+        event.preventDefault();
+        deleteFile($(this).attr('href'));
     });
 
     // clipboard
