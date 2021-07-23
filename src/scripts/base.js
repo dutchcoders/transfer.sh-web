@@ -90,7 +90,7 @@ $(document).ready(function() {
                     var deletionToken = xhr.getResponseHeader('X-Url-Delete').split('/').pop();
                     var url = $('<p></p>').text(xhr.responseText).html();
                     $(li).html('<a target="_blank" href="' + url + '">' + url + '</a><br/><br/>' +
-                        '<span class="code-title"># Delete URL</span><br/>' + deletionToken + '<hr/>');
+                        '<span class="code-title"># Deletion token</span><br/>' + deletionToken + '<hr/>');
                 } else {
                     $(li).html('<span>Error (' + xhr.status + ') during upload of file ' + file.name + '</span><hr/>');
                 }
