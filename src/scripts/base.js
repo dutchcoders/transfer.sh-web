@@ -68,7 +68,7 @@ $(document).ready(function() {
     function upload(file) {
         $('.browse').addClass('uploading');
 
-        var li = $('<li style="clear:both;"/>');
+        var li = $('<li style="clear:both;"/><br/><br/>');
 
         li.append($('<div><div class="upload-progress"><span></span><div class="bar" style="width:0%;">####################################################</div></div><p>Uploading... ' + file.name + '</p></div>'));
         $(li).appendTo($('.queue'));
@@ -90,9 +90,9 @@ $(document).ready(function() {
                     var deletionToken = xhr.getResponseHeader('X-Url-Delete').split('/').pop();
                     var url = $('<p></p>').text(xhr.responseText).html();
                     $(li).html('<a target="_blank" href="' + url + '">' + url + '</a><br/><br/>' +
-                        '<span class="code-title"># Delete URL</span><br/>' + deletionToken);
+                        '<span class="code-title"># Delete URL</span><br/>' + deletionToken + '<hr/>');
                 } else {
-                    $(li).html('<span>Error (' + xhr.status + ') during upload of file ' + file.name + '</span>');
+                    $(li).html('<span>Error (' + xhr.status + ') during upload of file ' + file.name + '</span><hr/>');
                 }
 
                 // file uploaded successfully, remove from queue
@@ -101,7 +101,7 @@ $(document).ready(function() {
                     queue.splice(index, 1);
                 }
 
-                files.push(URI(xhr.responseText.replace('\n', '')).path());
+                files.push(URI($('<p></p>').text(xhr.responseText.replace('\n', '')).html()).path());
 
                 $('.download-zip').attr('href', URI('(' + files.join(',') + ').zip').absoluteTo(location.href).toString());
                 $('.download-tar').attr('href', URI('(' + files.join(',') + ').tar.gz').absoluteTo(location.href).toString());

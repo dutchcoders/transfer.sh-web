@@ -93,19 +93,20 @@ include "includes/navigation.html"
             </div>
             <div class="col-md-3 col-xs-6">
                 <i class="icon-database"></i>
-                <h3>Upload up to 10 GB</h3>
+                {{ if .MaxUploadSize }}
+                <h3>Upload up to {{ .MaxUploadSize }}</h3>
+                {{ else }}
+                <h3>Unlimited upload</h3>
+                {{ end }}
             </div>
-            {{ if .PurgeTime }}
             <div class="col-md-3 col-xs-6">
                 <i class="icon-clock"></i>
+                {{ if .PurgeTime }}
                 <h3>Files stored for {{ .PurgeTime }}</h3>
-            </div>
-            {{ else }}
-            <div class="col-md-3 col-xs-6">
-                <i class="icon-clock"></i>
+                {{ else }}
                 <h3>Files stored forever</h3>
+                {{ end }}
             </div>
-            {{ end }}
         </div>
         <div class="row  animated fadeInDown">
             <div class="col-md-offset-3 col-md-3 col-xs-6">
