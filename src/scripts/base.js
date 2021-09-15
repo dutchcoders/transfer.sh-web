@@ -53,7 +53,7 @@ $(document).ready(function() {
                         if (xhr.status === 200) {
                             deleteModal.find('#web').html('<span style="clear:both">File deleted</span></div>');
                         } else {
-                            deleteModal.find('#web').append('<span>Error (' + xhr.status + ') during deletion of file</span>');
+                            deleteModal.find('#web').html('<span>Error (' + xhr.status + ') during deletion of file</span>');
                         }
                     }
                 };
