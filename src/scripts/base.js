@@ -51,9 +51,10 @@ $(document).ready(function() {
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4) {
                         if (xhr.status === 200) {
-                            deleteModal.find('#web').html('<span style="clear:both">File deleted</span></div>');
+                            deleteModal.find('#web').html('<span style="clear:both">File deleted</span>');
+                            deleteModal.find('#error').html('')
                         } else {
-                            deleteModal.find('#web').html('<span>Error (' + xhr.status + ') during deletion of file</span>');
+                            deleteModal.find('#error').html('<span>Error (' + xhr.status + ') during deletion of file</span>');
                         }
                     }
                 };
