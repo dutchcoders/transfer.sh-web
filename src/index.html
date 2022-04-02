@@ -43,11 +43,13 @@ include "includes/navigation.html"
                 </div>
                 <div id="terminal" class="terminal">
                     <code class="code-wrapper"><span class="code-title"># Upload using cURL</span>
-                        $ curl --upload-file ./hello.txt {{.WebAddress}}hello.txt {{.WebAddress}}{{.SampleToken}}/hello.txt
+                        $ curl --upload-file ./hello.txt {{.WebAddress}}hello.txt
+                        {{.WebAddress}}{{.SampleToken}}/hello.txt
 
                         <span class="code-title"># Using the shell function</span>
                         $ transfer hello.txt
-                        ##################################################### 100.0% {{.WebAddress}}{{.SampleToken2}}/hello.txt
+                        ##################################################### 100.0%
+                        {{.WebAddress}}{{.SampleToken2}}/hello.txt
                     </code>
                 </div>
                 <div id="web">
