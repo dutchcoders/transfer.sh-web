@@ -22,6 +22,27 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         yeoman: yeomanConfig,
+        googlefonts: {
+            build: {
+                options: {
+                    fontPath: 'dist/fonts/',
+                    httpPath: '../fonts/',
+                    cssFile: 'dist/fonts/fonts.css',
+                    fonts: [
+                        {
+                            family: 'Source Sans Pro',
+                            styles: [200, 300],
+                            subsets: ['latin', 'greek', 'cyrillic']
+                        },
+                        {
+                            family: 'Droid Sans Mono',
+                            styles: [400],
+                            subsets: ['latin', 'greek', 'cyrillic']
+                        },
+                    ]
+                }
+            }
+        },
         watch: {
             less: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
@@ -305,6 +326,8 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-npm-command');
+    grunt.loadNpmTasks('grunt-google-fonts');
+
 
     grunt.registerTask('serve', function (target) {
         if (target === 'dist') {
@@ -313,6 +336,7 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:server',
+            'googlefonts',
             'less',
             'includes:server',
             'copy:server',
@@ -335,6 +359,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
+        'googlefonts',
         'npm-command',
         'copy:server',
         'concurrent',

@@ -18,6 +18,7 @@
     "grunt-contrib-less": "^2.0.0",
     "grunt-contrib-uglify": "^4.0.1",
     "grunt-contrib-watch": "^1.1.0",
+    "grunt-google-fonts": "^0.5.0",
     "grunt-include-replace": "^5.0.0",
     "grunt-includes": "^1.1.0",
     "grunt-npm-command": "^0.1.2",
