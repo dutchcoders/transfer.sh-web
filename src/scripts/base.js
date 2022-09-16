@@ -140,6 +140,12 @@ $(document).ready(function() {
         event.stopPropagation();
         event.preventDefault();
     });
+    document.onpaste = function (event) {
+        for (var item of event.clipboardData.items) {
+            if (item.kind == 'file')
+                upload(item.getAsFile());
+        }
+    };
 
     $('a.browse').on('click', function() {
         $('input[type=file]').click();
