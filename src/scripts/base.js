@@ -141,6 +141,12 @@ $(document).ready(function() {
         event.preventDefault();
     });
 
+    $(document).bind('paste', function(event) {
+        $.each(event.originalEvent.clipboardData.files, function(index, file) {
+            upload(file);
+        });
+    });
+
     $('a.browse').on('click', function() {
         $('input[type=file]').click();
         return (false);
