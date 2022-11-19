@@ -5964,7 +5964,7 @@ body {
 #navigation ul {
   list-style: none;
   max-width: 400px;
-  marghomein: 0 auto;
+  margin: 0 auto;
 }
 #navigation li {
   display: inline-block;
@@ -6164,7 +6164,7 @@ a:hover {
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
   background: #36535a;
-  backbground-repeat: no-repeat;
+  background-repeat: no-repeat;
   background-size: cover;
 }
 .terminal a {
