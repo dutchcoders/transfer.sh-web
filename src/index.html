@@ -164,10 +164,40 @@ include "includes/navigation.html"
                 </div>
                 <div class="terminal">
                     <code class="code-wrapper"><span class="code-title"># Add this to .bashrc or .zshrc or its equivalent</span>
-                        transfer(){ if [ $# -eq 0 ];then echo &quot;No arguments specified.\nUsage:\n  transfer &lt;file|directory&gt;\n  ... | transfer &lt;file_name&gt;&quot;&gt;&amp;2;return 1;fi;if tty -s;then file=&quot;$1&quot;;file_name=$(basename &quot;$file&quot;);if [ ! -e &quot;$file&quot; ];then echo &quot;$file: No such file or directory&quot;&gt;&amp;2;return 1;fi;if [ -d &quot;$file&quot; ];then file_name=&quot;$file_name.zip&quot; ,;(cd &quot;$file&quot;&amp;&amp;zip -r -q - .)|curl --progress-bar --upload-file &quot;-&quot; &quot;{{.WebAddress}}$file_name&quot;|tee /dev/null,;else cat &quot;$file&quot;|curl --progress-bar --upload-file &quot;-&quot; &quot;{{.WebAddress}}$file_name&quot;|tee /dev/null;fi;else file_name=$1;curl --progress-bar --upload-file &quot;-&quot; &quot;{{.WebAddress}}$file_name&quot;|tee /dev/null;fi;}
+transfer()&nbsp;{
+	local&nbsp;file
+	local&nbsp;file_name
+	file=&quot;&sect;1&quot;
+	[&nbsp;&#45;n&nbsp;&quot;&sect;file&quot;&nbsp;]&nbsp;&amp;&amp;&nbsp;file_name=&sect;(basename&nbsp;&quot;&sect;file&quot;)&nbsp;||&nbsp;file_name=&quot;&quot;
 
+	if&nbsp;tty&nbsp;&#45;s;&nbsp;then
+		if&nbsp;[&nbsp;&sect;#&nbsp;&#45;eq&nbsp;0&nbsp;];&nbsp;then
+			echo&nbsp;&quot;No&nbsp;arguments&nbsp;specified.\nUsage:\n&nbsp;transfer&nbsp;&lt;file|directory&gt;\n&nbsp;...&nbsp;|&nbsp;transfer&nbsp;&lt;file_name&gt;&quot;&nbsp;&gt;&amp;2
+			return&nbsp;1
+		fi
+		if&nbsp;[&nbsp;!&nbsp;&#45;e&nbsp;&quot;&sect;file&quot;&nbsp;];&nbsp;then
+			echo&nbsp;&quot;&sect;file:&nbsp;No&nbsp;such&nbsp;file&nbsp;or&nbsp;directory&quot;&nbsp;&gt;&amp;2
+			return&nbsp;1
+		fi
+		if&nbsp;[&nbsp;&#45;d&nbsp;&quot;&sect;file&quot;&nbsp;];&nbsp;then
+			file_name=&quot;&sect;file_name.zip&quot;&nbsp;,
+			(cd&nbsp;&quot;&sect;file&quot;&nbsp;&amp;&amp;&nbsp;zip&nbsp;&#45;r&nbsp;&#45;q&nbsp;&#45;&nbsp;.)&nbsp;|&nbsp;curl&nbsp;&#45;&#45;progress&#45;bar&nbsp;&#45;&#45;upload&#45;file&nbsp;&quot;&#45;&quot;&nbsp;&quot;https://transfer.sh/&sect;file_name&quot;&nbsp;|&nbsp;tee&nbsp;/dev/null,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cat&nbsp;&quot;&sect;file&quot;&nbsp;|&nbsp;curl&nbsp;&#45;&#45;progress&#45;bar&nbsp;&#45;&#45;upload&#45;file&nbsp;&quot;&#45;&quot;&nbsp;&quot;https://transfer.sh/&sect;file_name&quot;&nbsp;|&nbsp;tee&nbsp;/dev/null
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fi
+	else
+		if&nbsp;[&nbsp;&#45;z&nbsp;&quot;&sect;file_name&quot;&nbsp;]&nbsp;&amp;&amp;&nbsp;[&nbsp;!&nbsp;&#45;t&nbsp;0&nbsp;];&nbsp;then
+			file_name=&sect;(mktemp&nbsp;&#45;u&nbsp;&quot;tmpXXXXXXXXXX&quot;)
+		elif&nbsp;[&nbsp;&#45;t&nbsp;0&nbsp;];&nbsp;then
+			echo&nbsp;&quot;No&nbsp;data&nbsp;provided.\nUsage:\n&nbsp;transfer&nbsp;&lt;file|directory&gt;\n&nbsp;...&nbsp;|&nbsp;transfer&nbsp;&lt;file_name&gt;&quot;&nbsp;&gt;&amp;2
+			return&nbsp;1
+		fi
+		curl&nbsp;&#45;&#45;progress&#45;bar&nbsp;&#45;&#45;upload&#45;file&nbsp;&quot;&#45;&quot;&nbsp;&quot;https://transfer.sh/&sect;file_name&quot;&nbsp;|&nbsp;tee&nbsp;/dev/null
+	fi
+}
                         <span class="code-title"># Now you can use transfer function</span>
                         $ transfer hello.txt
+                        $ cat hello.txt | transfer
                     </code>
                 </div>
             </div>
